@@ -141,18 +141,18 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var dateInput = document.getElementById('dob');
-            dateInput.addEventListener('click', function () {
-                dateInput.showPicker();
-            });
-            // Set custom placeholder
-            dateInput.placeholder = "DD/MM/YYYY";
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var dateInput = document.getElementById('dob');
+        //     // dateInput.addEventListener('click', function () {
+        //     //     dateInput.showPicker();
+        //     // });
+        //     // Set custom placeholder
+        //     dateInput.placeholder = "DD/MM/YYYY";
 
-            // Restrict to past dates only
-            var today = new Date().toISOString().split('T')[0];
-            dateInput.setAttribute('max', today);
-        });
+        //     // Restrict to past dates only
+        //     var today = new Date().toISOString().split('T')[0];
+        //     dateInput.setAttribute('max', today);
+        // });
 
         function formatDate(input) {
             // Remove non-digit characters
