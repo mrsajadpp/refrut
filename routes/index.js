@@ -9,7 +9,6 @@ const { default: mongoose } = require('mongoose');
 router.get('/', async (req, res) => {
     try {
         res.render('index/index', {
-            
             title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
             error: null, message: null, auth_page: true, req: req
