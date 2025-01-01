@@ -116,7 +116,7 @@ userSchema.methods.sendVerificationEmail = async function () {
         }
     });
 
-    const verificationUrl = `https://bowl.grovixlab.com/auth/verify-email?userId=${user._id}&verificationCode=${user.verificationCode}`;
+    const verificationUrl = `https://refrut.grovixlab.com/auth/verify-email?userId=${user._id}&verificationCode=${user.verificationCode}`;
 
     const mailOptions = {
         from: 'Refrut. <noreply.bowldot@gmail.com>',
@@ -172,7 +172,7 @@ userSchema.methods.sendVerificationEmail = async function () {
         </tr>
         <tr>
             <td class="footer">
-                <img src="https://bowl.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
                 <p>© Refrut. by Grovix Lab. All rights reserved.</p>
             </td>
         </tr>
@@ -197,7 +197,7 @@ userSchema.methods.sendResetEmail = async function (resetToken) {
         }
     });
 
-    const resetUrl = `https://bowl.grovixlab.com/auth/reset-password/${resetToken}`;
+    const resetUrl = `https://refrut.grovixlab.com/auth/reset-password/${resetToken}`;
 
     const mailOptions = {
         from: 'Refrut. <noreply.bowldot@gmail.com>',
@@ -253,7 +253,7 @@ userSchema.methods.sendResetEmail = async function (resetToken) {
         </tr>
         <tr>
             <td class="footer">
-                <img src="https://bowl.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
                 <p>© Refrut. by Grovix Lab. All rights reserved.</p>
             </td>
         </tr>

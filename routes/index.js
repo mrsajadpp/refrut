@@ -33,7 +33,7 @@ User-agent: *
 Allow: /*
 Disallow: /app/*
 
-Sitemap: https://bowl.grovixlab.com/sitemap.xml
+Sitemap: https://refrut.grovixlab.com/sitemap.xml
 `;
         res.header('Content-Type', 'text/plain');
         res.send(robotsTxt.trim());
