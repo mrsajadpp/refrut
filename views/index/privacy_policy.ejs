@@ -1,0 +1,208 @@
+<%- include('../partials/static_header') %>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        margin-top: 60px;
+    }
+
+    .hero-content {
+        flex: 1;
+        max-width: 50%;
+        padding: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #1a202c;
+        font-family: "Ahrefs";
+    }
+
+    .hero-content h2 {
+        margin-top: 15px;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #4a5568;
+        margin-top: 10px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 200px;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        border-radius: 80px;
+    }
+
+    .primary-btn {
+        background-color: #000;
+        color: #ffffff;
+    }
+
+    .primary-btn a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .secondary-btn {
+        background-color: transparent;
+        color: #000;
+        border: 1px solid #000;
+    }
+
+    .secondary-btn a {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .hero-image {
+        flex: 1;
+        max-width: 50%;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
+
+    .ul li {
+        font-size: 1rem;
+        color: #4a5568;
+        margin-top: 10px;
+        line-height: 1.6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+            text-align: left;
+        }
+
+        .hero-content {
+            max-width: 100%;
+            padding: 1rem 0;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+        }
+
+        .ul li {
+            font-size: 1rem;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            width: 100%;
+            padding: 0.8rem 1rem;
+        }
+
+        .hero-image {
+            max-width: 80%;
+            padding: 1rem 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-content h1 {
+            font-size: 1.8rem;
+        }
+
+        .hero-content p {
+            font-size: 0.9rem;
+        }
+
+        .ul li {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="hero-content">
+        <h1>Privacy Policy</h1>
+        <p>Your privacy is important to us. Please read the following privacy policy carefully to understand how we collect, use, and protect your personal information.</p>
+
+        <h2>1. Information We Collect</h2>
+        <p>We collect personal information when you use our services or website. This includes:</p>
+        <ul class="ul">
+            <li>Personal identification information (name, email address, etc.)</li>
+            <li>Non-personal identification information (browser type, IP address, etc.)</li>
+            <li>Cookies and usage data (for site analytics and functionality)</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>The information we collect is used to:</p>
+        <ul class="ul">
+            <li>Provide and improve our services and website</li>
+            <li>Personalize your experience</li>
+            <li>Communicate with you regarding your account and services</li>
+            <li>Analyze website usage for trends and improvements</li>
+            <li>Send promotional materials, if you opt-in</li>
+        </ul>
+
+        <h2>3. Data Security</h2>
+        <p>We implement appropriate technical and organizational measures to protect your personal information from unauthorized access, alteration, or destruction. However, no method of transmission over the internet is completely secure, and we cannot guarantee its absolute security.</p>
+
+        <h2>4. Sharing Your Information</h2>
+        <p>We do not sell, rent, or share your personal information with third parties, except in the following cases:</p>
+        <ul class="ul">
+            <li>With service providers who help us operate the website or provide services to you</li>
+            <li>As required by law, to comply with legal processes or protect our rights</li>
+        </ul>
+
+        <h2>5. Cookies</h2>
+        <p>Our website uses cookies to enhance your experience. Cookies are small files stored on your device that help us remember your preferences and improve our services. You can disable cookies through your browser settings, but doing so may limit your ability to use certain features of the site.</p>
+
+        <h2>6. Third-Party Links</h2>
+        <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites, and we encourage you to read their privacy policies before submitting any personal information.</p>
+
+        <h2>7. Your Rights</h2>
+        <p>You have the right to access, correct, or delete your personal information. If you wish to exercise these rights or have any concerns regarding your personal data, please contact us at <a href="mailto:sajad@grovixlab.com">sajad@grovixlab.com</a>.</p>
+
+        <h2>8. Changes to Privacy Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. Please review this policy periodically for any updates.</p>
+
+        <h2>9. Contact Information</h2>
+        <p>If you have any questions or concerns about this Privacy Policy, please contact us at <a href="mailto:sajad@grovixlab.com">sajad@grovixlab.com</a>.</p>
+    </div>
+</div>
+
+<%- include('../partials/static_footer') %>

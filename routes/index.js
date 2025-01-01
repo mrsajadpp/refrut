@@ -24,6 +24,42 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/terms-and-conditions', async (req, res) => {
+    try {
+        res.render('index/terms_and_conditions', {
+            title: "Terms and Conditions",
+            metaDescription: "Read Refrut's Terms and Conditions to understand your rights and responsibilities when using our website and services. Learn about account security, privacy policy, and legal agreements.",
+            error: null, message: null, auth_page: true, req: req
+        });
+    } catch (err) {
+        console.error(err);
+        logger.logError(err);
+        res.status(500).render('index/terms_and_conditions', {
+            title: "Terms and Conditions",
+            metaDescription: "Read Refrut's Terms and Conditions to understand your rights and responsibilities when using our website and services. Learn about account security, privacy policy, and legal agreements.",
+            error: 'Server error', message: null, auth_page: true, req: req
+        });
+    }
+});
+
+router.get('/privacy-policy', async (req, res) => {
+    try {
+        res.render('index/privacy_policy', {
+            title: "Privacy Policy",
+            metaDescription: "Explore Refrut's Privacy Policy to understand how we collect, use, and protect your personal information. Your privacy is important to us, and we are committed to safeguarding your data.",
+            error: null, message: null, auth_page: true, req: req
+        });
+    } catch (err) {
+        console.error(err);
+        logger.logError(err);
+        res.status(500).render('index/privacy_policy', {
+            title: "Privacy Policy",
+            metaDescription: "Explore Refrut's Privacy Policy to understand how we collect, use, and protect your personal information. Your privacy is important to us, and we are committed to safeguarding your data.",
+            error: 'Server error', message: null, auth_page: true, req: req
+        });
+    }
+});
+
 // Sitemap route
 router.get('/sitemap.xml', (req, res) => {
     try {
