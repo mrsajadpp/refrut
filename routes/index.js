@@ -18,7 +18,7 @@ function checkLoggedIn(req, res, next) {
 
 
 async function fetchMediumStories() {
-    const mediumRSSFeed = 'https://medium.com/feed/@sajadpp'; // Replace with your Medium username
+    const mediumRSSFeed = 'https://medium.com/feed/@refrut'; // Replace with your Medium username
     try {
         const feed = await parser.parseURL(mediumRSSFeed);
         const stories = feed.items.map(item => {
