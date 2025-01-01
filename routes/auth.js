@@ -359,7 +359,11 @@ router.get('/verify-email', async (req, res) => {
         user.verificationCodeCreatedAt = undefined; // Clear the verification code creation time
         await user.save();
 
-        res.redirect('/auth/login');
+        res.status(500).render('verify-email', {
+            title: 'Signup',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: null, message: "Email address verifeid succesfull.", auth_page: true, req: req, form_data: req.body
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
@@ -487,7 +491,11 @@ router.post('/reset-password/:token', async (req, res) => {
         user.resetPasswordExpires = undefined;
         await user.save();
 
-        res.redirect('/auth/login');
+        res.status(500).render('verify-email', {
+            title: 'Signup',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: null, message: "Password reset succesfull.", auth_page: true, req: req, form_data: req.body
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
