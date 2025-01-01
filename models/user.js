@@ -266,6 +266,139 @@ userSchema.methods.sendResetEmail = async function (resetToken) {
     await transporter.sendMail(mailOptions);
 };
 
+userSchema.methods.sendExpiryNotificationEmail = async function () {
+    const user = this;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'noreply.bowldot@gmail.com',
+            pass: process.env.APP_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: 'Refrut. <noreply.bowldot@gmail.com>',
+        to: user.email,
+        subject: 'Account Expired Due to Inactivity',
+        text: `Dear ${user.user_name}, your account has expired due to inactivity. Please contact support if you have any questions.`,
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Expired - Refrut</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #f5f5f5; padding: 20px; }
+        .content { font-size: 16px; color: #333333; line-height: 1.6; text-align: left; }
+        .content p { margin: 10px 0; }
+        .footer { text-align: center; font-size: 12px; color: #888888; padding: 20px; }
+        .footer img { margin-top: 10px; height: 30px; }
+    </style>
+</head>
+<body>
+    <table class="container" align="center">
+        <tr>
+            <td class="content">
+                <p>Dear <strong>${user.user_name}</strong>,</p>
+                <p>Your account has expired due to inactivity.</p>
+                <p>Please contact support if you have any questions.</p>
+                <p>Thank you for being a valued member of Refrut!</p>
+                <p>Warm regards,<br>The Refrut Team</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <p>© Refrut. by Grovix Lab. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+`
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
+userSchema.methods.sendPreExpiryNotificationEmail = async function () {
+    const user = this;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'noreply.bowldot@gmail.com',
+            pass: process.env.APP_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: 'Refrut. <noreply.bowldot@gmail.com>',
+        to: user.email,
+        subject: 'Account Expiration Notice',
+        text: `Dear ${user.user_name}, your account will expire in 3 days due to inactivity. Please log in to keep your account active.`,
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Expiration Notice - Refrut</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #f5f5f5; padding: 20px; }
+        .content { font-size: 16px; color: #333333; line-height: 1.6; text-align: left; }
+        .content p { margin: 10px 0; }
+        .footer { text-align: center; font-size: 12px; color: #888888; padding: 20px; }
+        .footer img { margin-top: 10px; height: 30px; }
+    </style>
+</head>
+<body>
+    <table class="container" align="center">
+        <tr>
+            <td class="content">
+                <p>Dear <strong>${user.user_name}</strong>,</p>
+                <p>Your account will expire in 3 days due to inactivity.</p>
+                <p>Please log in to keep your account active.</p>
+                <p>Thank you for being a valued member of Refrut!</p>
+                <p>Warm regards,<br>The Refrut Team</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <p>© Refrut. by Grovix Lab. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+`
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
+// Scheduled task to check for expired accounts and send notification
+cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
+    const expiredUsers = await User.find({ accountExpiryDate: { $lt: new Date() }, status: true });
+    for (const user of expiredUsers) {
+        user.status = false;
+        await user.save();
+        await user.sendExpiryNotificationEmail();
+    }
+});
+
+// Scheduled task to check for accounts expiring in 3 days and send notification
+cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
+    const threeDaysFromNow = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+    const usersExpiringSoon = await User.find({ accountExpiryDate: { $lt: threeDaysFromNow, $gt: new Date() }, status: true });
+    for (const user of usersExpiringSoon) {
+        await user.sendPreExpiryNotificationEmail();
+    }
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
