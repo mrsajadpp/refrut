@@ -222,7 +222,7 @@ router.post('/signup', async (req, res) => {
 
         reffer_user.extendExpiryDateByOneMonth();
 
-        await newUser.sendVerificationEmail();
+        await newUser.sendVerificationEmail(); 
 
         res.redirect('/auth/login');
     } catch (err) {

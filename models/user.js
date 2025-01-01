@@ -81,8 +81,8 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.extendExpiryDateByOneMonth = function () {
-    this.accountExpiryDate = new Date(this.accountExpiryDate.getTime() + 30 * 24 * 60 * 60 * 1000);
-    return this.save();
+    this.accountExpiryDate =moment(this.accountExpiryDate).add(1, 'month').toDate();
+    return this.save(); 
 };
 
 // Method to set status to false if email_verified is false after 24 hours
