@@ -1,156 +1,179 @@
-<link rel="stylesheet" href="/css/auth.css">
+<div class="container">
+    <link rel="stylesheet" href="/css/auth.css">
 
-<form action="/auth/signup" method="post">
-    <div class="logo_area">
-        <img src="/logo/refrut-text-logo.png" alt="logo">
-    </div>
-    <!-- <div class="label_box">
+    <form action="/auth/signup" method="post">
+        <div class="logo_area">
+            <img src="/logo/refrut-text-logo.png" alt="logo">
+        </div>
+        <!-- <div class="label_box">
         <span>Name</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path d='M15 7.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m4.5 13c-.475-9.333-14.525-9.333-15 0' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d='M15 7.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m4.5 13c-.475-9.333-14.525-9.333-15 0' />
+                </svg>
+            </div>
+            <input type="text" id="user_name" placeholder="Full name" name="user_name"
+                value="<%= form_data ? form_data.user_name : '' %>">
         </div>
-        <input type="text" id="user_name" placeholder="Full name" name="user_name"
-            value="<%= form_data ? form_data.user_name : '' %>">
-    </div>
-    <!-- <div class="label_box">
+        <!-- <div class="label_box">
         <span>Email</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d='m2.357 7.714 6.98 4.654c.963.641 1.444.962 1.964 1.087.46.11.939.11 1.398 0 .52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d='m2.357 7.714 6.98 4.654c.963.641 1.444.962 1.964 1.087.46.11.939.11 1.398 0 .52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327' />
+                </svg>
+            </div>
+            <input type="email" id="email" placeholder="Email" name="email"
+                value="<%= form_data ? form_data.email : '' %>">
         </div>
-        <input type="email" id="email" placeholder="Email" name="email" value="<%= form_data ? form_data.email : '' %>">
-    </div>
-    <!-- <div class="label_box">
+        <!-- <div class="label_box">
         <span>Date of Birth</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d='M9 11c1.162 3.722 4.667 4.269 6 0m-6 0c-1.053 3.373-3.462 3.74-5 1.91M15 11c.934 2.992 3.383 3.933 5 1.967' />
-                <path
-                    d='M20 21v-8c0-1.09-.91-2-2-2H6c-1.09 0-2 .91-2 2v8m-2 0h20M7 7v4m5-4v4m5-4v4M7 4v.5m5-.5v.5m5-.5v.5' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d='M9 11c1.162 3.722 4.667 4.269 6 0m-6 0c-1.053 3.373-3.462 3.74-5 1.91M15 11c.934 2.992 3.383 3.933 5 1.967' />
+                    <path
+                        d='M20 21v-8c0-1.09-.91-2-2-2H6c-1.09 0-2 .91-2 2v8m-2 0h20M7 7v4m5-4v4m5-4v4M7 4v.5m5-.5v.5m5-.5v.5' />
+                </svg>
+            </div>
+            <input id="dateInput" oninput="formatDate(this)" placeholder="Select a date (dd/mm/yyy)" id="dob" name="dob"
+                value="<%= form_data ? form_data.dob : '' %>">
         </div>
-        <input id="dateInput" oninput="formatDate(this)" placeholder="Select a date (dd/mm/yyy)" id="dob" name="dob"
-            value="<%= form_data ? form_data.dob : '' %>">
-    </div>
-    <!-- <div class="label_box">
+        <!-- Ref code -->
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d='m3.845 10.224 5.739-5.53c5.429-5.237 14.246 2.843 8.596 8.294l-7.112 6.862c-3.684 3.554-9.667-1.929-5.833-5.628l7.01-6.763c1.939-1.87 5.087 1.015 3.07 2.962L9.492 16' />
+                </svg>
+            </div>
+            <input type="text" id="reffcode" maxlength="6"
+                oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" placeholder="Refferal Code"
+                name="reff_code">
+        </div>
+        <!-- <div class="label_box">
         <span>Password</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d='M8 10V8c0-2.761 1.239-5 4-5s4 2.239 4 5v2M3.5 17.8v-4.6c0-1.12 0-1.68.218-2.107a2 2 0 0 1 .874-.875c.428-.217.988-.217 2.108-.217h10.6c1.12 0 1.68 0 2.108.217a2 2 0 0 1 .874.874c.218.428.218.988.218 2.108v4.6c0 1.12 0 1.68-.218 2.108a2 2 0 0 1-.874.874C18.98 21 18.42 21 17.3 21H6.7c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C3.5 19.481 3.5 18.921 3.5 17.8' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d='M8 10V8c0-2.761 1.239-5 4-5s4 2.239 4 5v2M3.5 17.8v-4.6c0-1.12 0-1.68.218-2.107a2 2 0 0 1 .874-.875c.428-.217.988-.217 2.108-.217h10.6c1.12 0 1.68 0 2.108.217a2 2 0 0 1 .874.874c.218.428.218.988.218 2.108v4.6c0 1.12 0 1.68-.218 2.108a2 2 0 0 1-.874.874C18.98 21 18.42 21 17.3 21H6.7c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C3.5 19.481 3.5 18.921 3.5 17.8' />
+                </svg>
+            </div>
+            <input type="password" id="password" placeholder="Password" name="password">
         </div>
-        <input type="password" id="password" placeholder="Password" name="password">
-    </div>
-    <div class="input_text">
-        <p>Minimum 6 characters, at least one letter, one number and one special character</p>
-    </div>
-    <!-- <div class="label_box">
+        <div class="input_text">
+            <p>Minimum 6 characters, at least one letter, one number and one special character</p>
+        </div>
+        <!-- <div class="label_box">
         <span>Position</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d='M8.308 21h7.384c3.71 0 4.375-1.45 4.569-3.213l.692-7.2c.25-2.196-.397-3.987-4.338-3.987h-9.23c-3.941 0-4.587 1.791-4.338 3.987l.692 7.2C3.933 19.55 4.598 21 8.308 21m0-14.4v-.72c0-1.593 0-2.88 2.954-2.88h1.476c2.954 0 2.954 1.287 2.954 2.88v.72' />
-                <path
-                    d='M9.812 13.331A15.26 15.26 0 0 1 3.234 11m11 2.331A15.26 15.26 0 0 0 20.812 11M14 13.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d='M8.308 21h7.384c3.71 0 4.375-1.45 4.569-3.213l.692-7.2c.25-2.196-.397-3.987-4.338-3.987h-9.23c-3.941 0-4.587 1.791-4.338 3.987l.692 7.2C3.933 19.55 4.598 21 8.308 21m0-14.4v-.72c0-1.593 0-2.88 2.954-2.88h1.476c2.954 0 2.954 1.287 2.954 2.88v.72' />
+                    <path
+                        d='M9.812 13.331A15.26 15.26 0 0 1 3.234 11m11 2.331A15.26 15.26 0 0 0 20.812 11M14 13.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0' />
+                </svg>
+            </div>
+            <select id="position" name="position">
+                <option disabled selected>Position</option>
+                <option value="professional" <%=form_data && form_data.position==='developer' ? 'selected' : '' %>
+                    >Developer</option>
+                <option value="student" <%=form_data && form_data.position==='student' ? 'selected' : '' %>>Student
+                </option>
+                <option value="student" <%=form_data && form_data.position==='startup_founder' ? 'selected' : '' %>
+                    >Startup
+                    Founder</option>
+                <option value="other" <%=form_data && form_data.position==='other' ? 'selected' : '' %>>Other</option>
+            </select>
         </div>
-        <select id="position" name="position">
-            <option disabled selected>Position</option>
-            <option value="professional" <%=form_data && form_data.position==='professional' ? 'selected' : '' %>
-                >Professional</option>
-            <option value="student" <%=form_data && form_data.position==='student' ? 'selected' : '' %>>Student</option>
-            <option value="other" <%=form_data && form_data.position==='other' ? 'selected' : '' %>>Other</option>
-        </select>
-    </div>
-    <!-- <div class="label_box">
+        <!-- <div class="label_box">
         <span>Sex</span>
     </div> -->
-    <div class="input_box">
-        <div class="input_icon">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
-                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-                <path d='M14.232 9.747a6 6 0 1 0-8.465 8.506 6 6 0 0 0 8.465-8.506m0 0L20 4m0 0h-4m4 0v4' />
-            </svg>
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path d='M14.232 9.747a6 6 0 1 0-8.465 8.506 6 6 0 0 0 8.465-8.506m0 0L20 4m0 0h-4m4 0v4' />
+                </svg>
+            </div>
+            <select id="sex" name="sex">
+                <option disabled selected>Sex</option>
+                <option value="male" <%=form_data && form_data.sex==='male' ? 'selected' : '' %>
+                    >Male</option>
+                <option value="female" <%=form_data && form_data.sex==='female' ? 'selected' : '' %>>Female</option>
+                <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' : '' %>>Other</option>
+            </select>
         </div>
-        <select id="sex" name="sex">
-            <option disabled selected>Sex</option>
-            <option value="male" <%=form_data && form_data.sex==='male' ? 'selected' : '' %>
-                >Male</option>
-            <option value="female" <%=form_data && form_data.sex==='female' ? 'selected' : '' %>>Female</option>
-            <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' : '' %>>Other</option>
-        </select>
-    </div>
 
-    <div class="input_button">
-        <button type="submit" onclick="loadButton();" class="click_button">
-            <span class="button__text">Signup</span>
-        </button>
-    </div>
+        <div class="input_button">
+            <button type="submit" onclick="loadButton();" class="click_button">
+                <span class="button__text">Signup</span>
+            </button>
+        </div>
 
-    <div class="input_text">
-        <p>If you already have an account, <a href="/auth/login">click here</a> to log in.</p>
-    </div>
-</form>
+        <div class="input_text">
+            <p>If you already have an account, <a href="/auth/login">click here</a> to log in.</p>
+        </div>
+    </form>
 
 
-<script>
-    let button = document.querySelector(".click_button");
+    <script>
+        let button = document.querySelector(".click_button");
 
-    const loadButton = () => {
-        button.classList.add('button__loading');
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var dateInput = document.getElementById('dob');
-        dateInput.addEventListener('click', function () {
-            dateInput.showPicker();
+        const loadButton = () => {
+            button.classList.add('button__loading');
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dateInput = document.getElementById('dob');
+            dateInput.addEventListener('click', function () {
+                dateInput.showPicker();
+            });
+            // Set custom placeholder
+            dateInput.placeholder = "DD/MM/YYYY";
+
+            // Restrict to past dates only
+            var today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('max', today);
         });
-        // Set custom placeholder
-        dateInput.placeholder = "DD/MM/YYYY";
 
-        // Restrict to past dates only
-        var today = new Date().toISOString().split('T')[0];
-        dateInput.setAttribute('max', today);
-    });
+        function formatDate(input) {
+            // Remove non-digit characters
+            let value = input.value.replace(/\D/g, '');
 
-    function formatDate(input) {
-        // Remove non-digit characters
-        let value = input.value.replace(/\D/g, '');
+            // Limit to 8 digits (DDMMYYYY)
+            if (value.length > 8) {
+                value = value.slice(0, 8);
+            }
 
-        // Limit to 8 digits (DDMMYYYY)
-        if (value.length > 8) {
-            value = value.slice(0, 8);
+            // Add slashes at appropriate positions
+            if (value.length > 4) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
+            } else if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+            }
+
+            input.value = value;
         }
+    </script>
+</div>
+<br><br><br><br><br>
 
-        // Add slashes at appropriate positions
-        if (value.length > 4) {
-            value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4);
-        } else if (value.length > 2) {
-            value = value.slice(0, 2) + '/' + value.slice(2);
-        }
-
-        input.value = value;
-    }
-</script>
+<%- include('partials/static_footer') %>

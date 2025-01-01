@@ -29,7 +29,11 @@ function convertToISO(dateString) {
 // GET route for signup page
 router.get('/signup', (req, res) => {
     try {
-        res.render('signup', { title: 'Signup', error: null, form_data: {}, message: null, auth_page: true });
+        res.render('signup', {
+            title: 'Signup',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: null, message: null, auth_page: true, req: req, form_data: null
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
@@ -39,7 +43,11 @@ router.get('/signup', (req, res) => {
 // GET route for login page
 router.get('/login', (req, res) => {
     try {
-        res.render('login', { title: 'Login', error: null, form_data: {}, message: null, auth_page: true });
+        res.render('login', {
+            title: 'Login',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: null, message: null, auth_page: true, req: req, form_data: null
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
@@ -65,44 +73,76 @@ router.post('/signup', async (req, res) => {
     try {
         // Validate user_name
         if (!user_name || user_name.length < 3) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Invalid username', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Invalid email', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate dob
         if (!dob || new Date(dob) > new Date()) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Invalid date of birth', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate password
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         if (!password || !passwordRegex.test(password)) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate position
         if (!position) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Position is required', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Position is Required', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate sex
         if (!sex) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Sex is required', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Sex is Required', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         if (!isPastDate(dob)) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'Date of birth cannot be in the future', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Date of birth cannot be in the future', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).render('signup', { title: 'Signup', error: 'User already exists', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'User already exists', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Create new user
@@ -233,7 +273,7 @@ router.post('/reset-password', async (req, res) => {
         console.error(err);
         logger.logError(err);
         res.status(500).render('reset_password_request', { title: 'Reset Password', error: 'Server error', message: null, auth_page: true });
-    } 
+    }
 });
 
 // GET route for password reset form

@@ -9,7 +9,7 @@ const { default: mongoose } = require('mongoose');
 router.get('/', async (req, res) => {
     try {
         res.render('index/index', {
-            layout: 'index_layout',
+            
             title: 'Bowl - Manage Your Finances Easily',
             metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
             error: null, message: null, auth_page: true, req: req

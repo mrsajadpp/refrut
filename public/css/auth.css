@@ -35,7 +35,7 @@ form .input_box {
     padding: 10px;
     height: 45px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 80px;
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -48,7 +48,7 @@ form .input_button {
     flex-direction: row;
     height: 45px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 90px;
     overflow: hidden;
     margin-top: 10px;
 }
