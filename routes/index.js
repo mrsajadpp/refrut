@@ -75,7 +75,7 @@ router.get('/events', async (req, res) => {
         res.render('index/events', {
             title: "Explore Upcoming Events",
             metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
-            error: null, message: null, auth_page: true, req: req, events
+            error: null, message: null, auth_page: true, req: req, events, ogImage: 'events.webp'
         });
     } catch (err) {
         console.error(err);
@@ -83,7 +83,7 @@ router.get('/events', async (req, res) => {
         res.status(500).render('index/index', {
             title: "Explore Upcoming Events",
             metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
-            error: 'Server error', message: null, auth_page: true, req: req, events: null
+            error: 'Server error', message: null, auth_page: true, req: req, events: null, ogImage: 'events.webp'
         });
     }
 });
@@ -95,7 +95,7 @@ router.get('/blog', async (req, res) => {
         res.render('index/blogs', {
             title: "Discover Inspiring Blogs",
             metaDescription: 'Explore our collection of insightful blogs covering a wide range of topics, including technology, lifestyle, personal growth, and more. Stay informed, inspired, and entertained.',
-            error: null, message: null, auth_page: true, req: req, blogs
+            error: null, message: null, auth_page: true, req: req, blogs, ogImage: 'blog.webp'
         });
     } catch (err) {
         console.error(err);
@@ -103,7 +103,7 @@ router.get('/blog', async (req, res) => {
         res.status(500).render('index/blogs', {
             title: "Discover Inspiring Blogs",
             metaDescription: 'Explore our collection of insightful blogs covering a wide range of topics, including technology, lifestyle, personal growth, and more. Stay informed, inspired, and entertained.',
-            error: 'Server error', message: null, auth_page: true, req: req, blogs: null
+            error: 'Server error', message: null, auth_page: true, req: req, blogs: null, ogImage: 'blog.webp'
         });
     }
 });

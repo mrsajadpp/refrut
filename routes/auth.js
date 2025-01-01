@@ -52,7 +52,7 @@ router.get('/signup', (req, res) => {
         res.render('signup', {
             title: 'Signup',
             metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-            error: null, message: null, auth_page: true, req: req, form_data: req.query
+            error: null, message: null, auth_page: true, req: req, form_data: req.query, ogImage: 'signup.webp'
         });
     } catch (err) {
         console.error(err);
@@ -66,7 +66,7 @@ router.get('/login', (req, res) => {
         res.render('login', {
             title: 'Login',
             metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-            error: null, message: null, auth_page: true, req: req, form_data: null
+            error: null, message: null, auth_page: true, req: req, form_data: null, ogImage: 'login.webp'
         });
     } catch (err) {
         console.error(err);
@@ -96,7 +96,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -104,7 +104,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -113,7 +113,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -122,7 +122,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -131,7 +131,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -139,7 +139,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -148,7 +148,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Refferal Code is Required', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Refferal Code is Required', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -157,7 +157,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -166,7 +166,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -175,7 +175,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Position is Required', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Position is Required', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -184,7 +184,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Sex is Required', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Sex is Required', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -192,7 +192,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Date of birth cannot be in the future', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Date of birth cannot be in the future', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -202,7 +202,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'User already exists', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'User already exists', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -212,7 +212,7 @@ router.post('/signup', async (req, res) => {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-                error: 'Refferal Code is Invalid', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Refferal Code is Invalid', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
 
@@ -220,7 +220,7 @@ router.post('/signup', async (req, res) => {
         const newUser = new User({ user_name, email, dob: await convertToISO(dob), reff_code: await generateUniqueRefCode(), reffer_user: reffer_user._id, password, position, profile_url, sex });
         await newUser.save();
 
-        await newUser.sendVerificationEmail(); 
+        await newUser.sendVerificationEmail();
 
         res.status(500).render('verify-email', {
             title: 'Signup',
@@ -233,7 +233,7 @@ router.post('/signup', async (req, res) => {
         res.status(500).render('signup', {
             title: 'Signup',
             metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
         });
     }
 });
@@ -248,7 +248,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -257,7 +257,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'Password is Required', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Password is Required', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -267,7 +267,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -276,7 +276,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'Account has expired', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Account has expired', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -284,7 +284,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'User was banned', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'User was banned', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -294,7 +294,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'Invalid Passsword', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Invalid Passsword', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -303,7 +303,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'Email not verified. A verification email has been sent.', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'Email not verified. A verification email has been sent.', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
 
@@ -320,7 +320,7 @@ router.post('/login', async (req, res) => {
         res.status(500).render('login', {
             title: 'Login',
             metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
         });
     }
 });
