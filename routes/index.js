@@ -3,6 +3,8 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const User = require('../models/user');
 const logger = require('../logger');
+const RSSParser = require('rss-parser');
+const parser = new RSSParser();
 const axios = require('axios');
 const { default: mongoose } = require('mongoose');
 
@@ -13,6 +15,37 @@ function checkLoggedIn(req, res, next) {
     }
     return res.redirect('/app/');
 }
+
+
+async function fetchMediumStories() {
+    const mediumRSSFeed = 'https://medium.com/feed/@sajadpp'; // Replace with your Medium username
+    try {
+        const feed = await parser.parseURL(mediumRSSFeed);
+        const stories = feed.items.map(item => {
+          // Extract thumbnail and description from the content field
+          const content = item['content:encoded'];
+          const thumbnailMatch = content.match(/<img src="(.*?)"/);
+          const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null;
+    
+          const descriptionMatch = content.match(/<p>(.*?)<\/p>/);
+          const description = descriptionMatch ? descriptionMatch[1] : null;
+    
+          return {
+            title: item.title,
+            link: item.link,
+            description: description, // Fallback to snippet if no description
+            thumbnail: thumbnail,
+            pubDate: item.pubDate,
+            categories: item.categories,
+          };
+        });
+    
+        return stories;
+      } catch (error) {
+        console.error('Error fetching Medium stories:', error);
+        return null;
+      }
+  }
 
 
 router.get('/', checkLoggedIn, async (req, res) => {
@@ -50,6 +83,26 @@ router.get('/events', async (req, res) => {
             title: "Explore Upcoming Events",
             metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
             error: 'Server error', message: null, auth_page: true, req: req, events: null
+        });
+    }
+});
+
+router.get('/blog', async (req, res) => {
+    try {
+        const blogs = await fetchMediumStories();
+
+        res.render('index/blogs', {
+            title: "Discover Inspiring Blogs",
+            metaDescription: 'Explore our collection of insightful blogs covering a wide range of topics, including technology, lifestyle, personal growth, and more. Stay informed, inspired, and entertained.',
+            error: null, message: null, auth_page: true, req: req, blogs
+        });
+    } catch (err) {
+        console.error(err);
+        logger.logError(err);
+        res.status(500).render('index/blogs', {
+            title: "Discover Inspiring Blogs",
+            metaDescription: 'Explore our collection of insightful blogs covering a wide range of topics, including technology, lifestyle, personal growth, and more. Stay informed, inspired, and entertained.',
+            error: 'Server error', message: null, auth_page: true, req: req, blogs: null
         });
     }
 });
