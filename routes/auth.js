@@ -26,6 +26,26 @@ function convertToISO(dateString) {
     return isoDateString;  // Return the ISO formatted string
 }
 
+async function generateUniqueRefCode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let refCode;
+    let isUnique = false;
+
+    while (!isUnique) {
+        refCode = '';
+        for (let i = 0; i < 6; i++) {
+            refCode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        const existingUser = await User.findOne({ reff_code: refCode });
+        if (!existingUser) {
+            isUnique = true;
+        }
+    }
+
+    return refCode;
+}
+
 // GET route for signup page
 router.get('/signup', (req, res) => {
     try {
@@ -56,7 +76,7 @@ router.get('/login', (req, res) => {
 
 // Signup route
 router.post('/signup', async (req, res) => {
-    const { user_name, email, dob, password, position, sex } = req.body;
+    const { user_name, email, dob, password, position, sex, reff_code } = req.body;
     const profileUrls = [
         '/pfp/profile1.jpg',
         '/pfp/profile2.jpg',
@@ -96,6 +116,15 @@ router.post('/signup', async (req, res) => {
                 title: 'Signup',
                 metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
                 error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
+        // Validate reff code
+        if (!reff_code) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Refferal Code is Required', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
 
@@ -145,19 +174,25 @@ router.post('/signup', async (req, res) => {
             });
         }
 
+        let reffer_user = await User.findOne({ reff_code: reff_code });
+
+        if (!reffer_user) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Refferal Code is Invalid', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
         // Create new user
-        const newUser = new User({ user_name, email, dob: convertToISO(dob), password, position, profile_url, sex });
+        const newUser = new User({ user_name, email, dob: convertToISO(dob), reff_code: await generateUniqueRefCode(), reffer_user: reffer_user._id, password, position, profile_url, sex });
         await newUser.save();
 
-        // Remove password from user object before adding to session
-        const userWithoutPassword = newUser.toObject();
-        delete userWithoutPassword.password;
+        reffer_user.extendExpiryDateByOneMonth();
 
         await newUser.sendVerificationEmail();
 
-        // Save user to session
-        req.session.user = userWithoutPassword;
-        res.redirect('/app/home');
+        res.redirect('/auth/login');
     } catch (err) {
         console.error(err);
         logger.logError(err);

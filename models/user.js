@@ -19,6 +19,14 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    reff_code: {
+        type: String,
+        required: true
+    },
+    reffer_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     password: {
         type: String,
         required: true
@@ -46,6 +54,10 @@ const userSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    accountExpiryDate: {
+        type: Date,
+        default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 1 month from now
+    },
     verificationCode: {
         type: String
     },
@@ -57,7 +69,7 @@ const userSchema = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date
-    }
+    },
 });
 
 userSchema.pre('save', async function (next) {
@@ -67,6 +79,11 @@ userSchema.pre('save', async function (next) {
     }
     next();
 });
+
+userSchema.methods.extendExpiryDateByOneMonth = function () {
+    this.accountExpiryDate = new Date(this.accountExpiryDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+    return this.save();
+};
 
 // Method to set status to false if email_verified is false after 24 hours
 userSchema.methods.checkEmailVerification = function () {

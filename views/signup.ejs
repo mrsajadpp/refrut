@@ -59,7 +59,7 @@
             </div>
             <input type="text" id="reffcode" maxlength="6"
                 oninput="this.value = this.value.toUpperCase().replace(/\s+/g, '');" placeholder="Refferal Code"
-                name="reff_code">
+                name="reff_code" value="<%= form_data ? form_data.reff_code : '' %>">
         </div>
         <!-- <div class="label_box">
         <span>Password</span>
@@ -96,7 +96,7 @@
                     >Developer</option>
                 <option value="student" <%=form_data && form_data.position==='student' ? 'selected' : '' %>>Student
                 </option>
-                <option value="student" <%=form_data && form_data.position==='startup_founder' ? 'selected' : '' %>
+                <option value="startup_founder" <%=form_data && form_data.position==='startup_founder' ? 'selected' : '' %>
                     >Startup
                     Founder</option>
                 <option value="other" <%=form_data && form_data.position==='other' ? 'selected' : '' %>>Other</option>
