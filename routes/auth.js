@@ -302,7 +302,7 @@ router.post('/login', async (req, res) => {
 
         // Save user to session
         req.session.user = userWithoutPassword;
-        res.redirect('/app/home');
+        res.redirect('/app/');
     } catch (err) {
         console.error(err);
         logger.logError(err);

@@ -61,7 +61,7 @@ function checkLoggedIn(req, res, next) {
     if (!req.session.user) {
         return next();
     }
-    return res.redirect('/app/home');
+    return res.redirect('/app/');
 }
 
 // Middleware to check if user is not logged in
