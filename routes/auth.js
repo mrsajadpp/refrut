@@ -224,7 +224,11 @@ router.post('/signup', async (req, res) => {
 
         await newUser.sendVerificationEmail(); 
 
-        res.redirect('/auth/login');
+        res.status(500).render('verify-email', {
+            title: 'Signup',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: null, message: "A email verification send, please check your spam folder or inbox.", auth_page: true, req: req, form_data: req.body
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
