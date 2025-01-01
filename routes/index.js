@@ -5,8 +5,16 @@ const User = require('../models/user');
 const logger = require('../logger');
 const { default: mongoose } = require('mongoose');
 
+// Middleware to check if user is already logged in
+function checkLoggedIn(req, res, next) {
+    if (!req.session.user) {
+        return next();
+    }
+    return res.redirect('/app/');
+}
 
-router.get('/', async (req, res) => {
+
+router.get('/', checkLoggedIn, async (req, res) => {
     try {
         res.render('index/index', {
             title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
