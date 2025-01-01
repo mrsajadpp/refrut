@@ -269,6 +269,15 @@ router.post('/login', async (req, res) => {
             });
         }
 
+        // Check if account is expired
+        if (user.accountExpiryDate && user.accountExpiryDate < new Date()) {
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
+                error: 'Account has expired', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
         if (!user.status) {
             return res.status(400).render('login', {
                 title: 'Login',
