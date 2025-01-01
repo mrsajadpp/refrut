@@ -92,7 +92,15 @@ router.post('/signup', async (req, res) => {
 
     try {
         // Validate user_name
-        if (!user_name || user_name.length < 3) {
+        if (!user_name) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
+        if (user_name.length < 3) {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
@@ -101,8 +109,16 @@ router.post('/signup', async (req, res) => {
         }
 
         // Validate email
+        if (!email) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email || !emailRegex.test(email)) {
+        if (!emailRegex.test(email)) {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
@@ -111,7 +127,15 @@ router.post('/signup', async (req, res) => {
         }
 
         // Validate dob
-        if (!dob || new Date(dob) > new Date()) {
+        if (!dob) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
+        if (new Date(dob) > new Date()) {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
@@ -129,8 +153,16 @@ router.post('/signup', async (req, res) => {
         }
 
         // Validate password
+        if (!password) {
+            return res.status(400).render('signup', {
+                title: 'Signup',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-        if (!password || !passwordRegex.test(password)) {
+        if (!passwordRegex.test(password)) {
             return res.status(400).render('signup', {
                 title: 'Signup',
                 metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
