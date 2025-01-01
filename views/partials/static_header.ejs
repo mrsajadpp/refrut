@@ -265,9 +265,13 @@
             </nav>
         </div>
         <div class="header-right">
-            <a href="/auth/login">
-                Login
-            </a>
+            <div class="header-right">
+                <% if (req.session.user) { %>
+                    <a href="/app/logout">Logout</a>
+                <% } else { %>
+                    <a href="/auth/login">Login</a>
+                <% } %>
+            </div>            
         </div>
     </div>
 </header>
@@ -300,7 +304,11 @@
         <a href="/blog">Blog</a>
         <a href="/partners">Partners</a>
         <a href="mailto:sajad@grovixlab.com?subject=Contact">Contact</a>
-        <a href="/auth/login">Login</a>
+        <% if (req.session.user) { %>
+            <a href="/app/logout">Logout</a>
+        <% } else { %>
+            <a href="/auth/login">Login</a>
+        <% } %>
     </nav>
 </div>
 <script>
