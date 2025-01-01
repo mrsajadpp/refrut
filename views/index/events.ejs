@@ -1,0 +1,132 @@
+<%- include('../partials/static_header') %>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+
+    .event-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .event-card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .event-card-content {
+        padding: 1rem;
+    }
+
+    .event-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 0.5rem;
+    }
+
+    .event-description {
+        font-size: 1rem;
+        color: #4a5568;
+        margin-bottom: 1rem;
+    }
+
+    .event-meta {
+        font-size: 0.875rem;
+        color: #718096;
+        margin-bottom: 1rem;
+    }
+
+    .event-meta p {
+        margin: 0.25rem 0;
+    }
+
+    .register-button {
+        display: block;
+        text-align: center;
+        background-color: #000;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 80px;
+        margin: -1rem 1rem 1rem 1rem;
+    }
+
+    .register-button:hover {
+        background-color: #444;
+    }
+
+    .event-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .event-title {
+            font-size: 1.25rem;
+        }
+
+        .event-description {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="container">
+    <% events.forEach(event => { %>
+        <div class="event-card">
+            <img src="<%= event.banner %>" alt="<%= event.title %>">
+            <div class="event-card-content">
+                <h3 class="event-title"><%= event.title %></h3>
+                <p class="event-description">
+                    <%= event.description.replace(/<[^>]*>?/gm, '').substring(0, 150) %>...
+                </p>
+                <div class="event-meta">
+                    <% if (event.place) { %>
+                        <p><strong>Place:</strong> <%= event.place %></p>
+                    <% } %>
+                    <% if (event.location) { %>
+                        <p><strong>Location:</strong> <%= event.location %></p>
+                    <% } %>
+                    <% if (event.event_start_date) { %>
+                        <p><strong>Start Date:</strong> <%= event.event_start_date %></p>
+                    <% } %>
+                    <% if (event.event_end_date) { %>
+                        <p><strong>End Date:</strong> <%= event.event_end_date %></p>
+                    <% } %>
+                </div>
+            </div>
+            <a href="https://makemypass.com/register/<%= event.id %>" class="register-button">Register Now</a>
+        </div>
+    <% }); %>
+</div>
+
+<%- include('../partials/static_footer') %>

@@ -3,6 +3,7 @@ const cookieSession = require('cookie-session');
 const router = express.Router();
 const User = require('../models/user');
 const logger = require('../logger');
+const axios = require('axios');
 const { default: mongoose } = require('mongoose');
 
 // Middleware to check if user is already logged in
@@ -28,6 +29,27 @@ router.get('/', checkLoggedIn, async (req, res) => {
             title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
             error: 'Server error', message: null, auth_page: true, req: req
+        });
+    }
+});
+
+router.get('/events', async (req, res) => {
+    try {
+        const data = await axios.get('https://api.buildnship.in/makemypass/integration/org/refrut/list-events/');
+        const events = data.data.response;
+
+        res.render('index/events', {
+            title: "Explore Upcoming Events",
+            metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
+            error: null, message: null, auth_page: true, req: req, events
+        });
+    } catch (err) {
+        console.error(err);
+        logger.logError(err);
+        res.status(500).render('index/index', {
+            title: "Explore Upcoming Events",
+            metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
+            error: 'Server error', message: null, auth_page: true, req: req, events: null
         });
     }
 });
