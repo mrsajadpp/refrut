@@ -1,0 +1,66 @@
+<%- include('../partials/static_header') %>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            margin-top: 60px;
+        }
+
+        .partner-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        .partner-logo {
+            width: 100%;
+            max-width: 150px;
+            height: auto;
+        }
+
+        .partner-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 10px;
+            color: #1a202c;
+        }
+
+        .partner-description {
+            font-size: 1rem;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .partner-card {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <div class="partner-card">
+            <img src="/img/make-my-pass.png" alt="Partner 1 Logo" class="partner-logo">
+            <div class="partner-title">MakeMyPass</div>
+            <div class="partner-description">Partnering with us to bring seamless ticketing solutions to events and
+                shows.</div>
+        </div>
+    </div>
+
+    <%- include('../partials/static_footer') %>

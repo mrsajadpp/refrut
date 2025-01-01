@@ -22,31 +22,31 @@ async function fetchMediumStories() {
     try {
         const feed = await parser.parseURL(mediumRSSFeed);
         const stories = feed.items.map(item => {
-          // Extract thumbnail and description from the content field
-          const content = item['content:encoded'];
-          const thumbnailMatch = content.match(/src="(.*?)"/);
-          const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null;
-    
-          const descriptionMatch = content.match(/<p>(.*?)<\/p>/);
-          const description = descriptionMatch ? descriptionMatch[1] : null;
-          
-    
-          return {
-            title: item.title,
-            link: item.link,
-            description: description, // Fallback to snippet if no description
-            thumbnail: thumbnail,
-            pubDate: item.pubDate,
-            categories: item.categories,
-          };
+            // Extract thumbnail and description from the content field
+            const content = item['content:encoded'];
+            const thumbnailMatch = content.match(/src="(.*?)"/);
+            const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null;
+
+            const descriptionMatch = content.match(/<p>(.*?)<\/p>/);
+            const description = descriptionMatch ? descriptionMatch[1] : null;
+
+
+            return {
+                title: item.title,
+                link: item.link,
+                description: description, // Fallback to snippet if no description
+                thumbnail: thumbnail,
+                pubDate: item.pubDate,
+                categories: item.categories,
+            };
         });
-    
+
         return stories;
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching Medium stories:', error);
         return null;
-      }
-  }
+    }
+}
 
 
 router.get('/', checkLoggedIn, async (req, res) => {
@@ -104,6 +104,24 @@ router.get('/blog', async (req, res) => {
             title: "Discover Inspiring Blogs",
             metaDescription: 'Explore our collection of insightful blogs covering a wide range of topics, including technology, lifestyle, personal growth, and more. Stay informed, inspired, and entertained.',
             error: 'Server error', message: null, auth_page: true, req: req, blogs: null, ogImage: 'blog.webp'
+        });
+    }
+});
+
+router.get('/partners', async (req, res) => {
+    try {
+        res.render('index/partners', {
+            title: "Partners",
+            metaDescription: 'Explore our valued partners at Refrut who contribute to our mission of innovation and growth. From technology to marketing, we collaborate with industry leaders to bring cutting-edge solutions and services to our community.',
+            error: null, message: null, auth_page: true, req: req, ogImage: 'blog.webp'
+        });
+    } catch (err) {
+        console.error(err);
+        logger.logError(err);
+        res.status(500).render('index/partners', {
+            title: "Partners",
+            metaDescription: 'Explore our valued partners at Refrut who contribute to our mission of innovation and growth. From technology to marketing, we collaborate with industry leaders to bring cutting-edge solutions and services to our community.',
+            error: 'Server error', message: null, auth_page: true, req: req, ogImage: 'blog.webp'
         });
     }
 });
