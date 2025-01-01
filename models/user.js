@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
     },
     accountExpiryDate: {
         type: Date,
-        default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 1 month from now
+        default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     },
     verificationCode: {
         type: String
@@ -81,8 +81,16 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.extendExpiryDateByOneMonth = function () {
-    this.accountExpiryDate =moment(this.accountExpiryDate).add(1, 'month').toDate();
-    return this.save(); 
+    const currentDate = moment(this.accountExpiryDate);
+    const nextMonth = currentDate.month() === 11 ? 0 : currentDate.month() + 1;
+    const nextYear = currentDate.month() === 11 ? currentDate.year() + 1 : currentDate.year();
+
+    this.accountExpiryDate = moment(this.accountExpiryDate)
+        .year(nextYear)
+        .month(nextMonth)
+        .toDate();
+
+    return this.save();
 };
 
 // Method to set status to false if email_verified is false after 24 hours
