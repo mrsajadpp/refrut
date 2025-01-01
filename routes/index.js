@@ -10,16 +10,16 @@ router.get('/', async (req, res) => {
     try {
         res.render('index/index', {
             
-            title: 'Bowl - Manage Your Finances Easily',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
             error: null, message: null, auth_page: true, req: req
         });
     } catch (err) {
         console.error(err);
         logger.logError(err);
         res.status(500).render('index/index', {
-            title: 'Bowl - Manage Your Finances Easily',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
             error: 'Server error', message: null, auth_page: true, req: req
         });
     }

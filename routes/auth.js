@@ -51,7 +51,7 @@ router.get('/signup', (req, res) => {
     try {
         res.render('signup', {
             title: 'Signup',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
             error: null, message: null, auth_page: true, req: req, form_data: req.query
         });
     } catch (err) {
@@ -65,7 +65,7 @@ router.get('/login', (req, res) => {
     try {
         res.render('login', {
             title: 'Login',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
             error: null, message: null, auth_page: true, req: req, form_data: null
         });
     } catch (err) {
@@ -95,7 +95,7 @@ router.post('/signup', async (req, res) => {
         if (!user_name) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -103,7 +103,7 @@ router.post('/signup', async (req, res) => {
         if (user_name.length < 3) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Username', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -112,7 +112,7 @@ router.post('/signup', async (req, res) => {
         if (!email) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -121,7 +121,7 @@ router.post('/signup', async (req, res) => {
         if (!emailRegex.test(email)) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -130,7 +130,7 @@ router.post('/signup', async (req, res) => {
         if (!dob) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -138,7 +138,7 @@ router.post('/signup', async (req, res) => {
         if (new Date(dob) > new Date()) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid Date of Birth', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -147,7 +147,7 @@ router.post('/signup', async (req, res) => {
         if (!reff_code) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Refferal Code is Required', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -156,7 +156,7 @@ router.post('/signup', async (req, res) => {
         if (!password) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -165,7 +165,7 @@ router.post('/signup', async (req, res) => {
         if (!passwordRegex.test(password)) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -174,7 +174,7 @@ router.post('/signup', async (req, res) => {
         if (!position) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Position is Required', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -183,7 +183,7 @@ router.post('/signup', async (req, res) => {
         if (!sex) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Sex is Required', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -191,7 +191,7 @@ router.post('/signup', async (req, res) => {
         if (!isPastDate(dob)) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Date of birth cannot be in the future', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -201,7 +201,7 @@ router.post('/signup', async (req, res) => {
         if (existingUser) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'User already exists', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -211,7 +211,7 @@ router.post('/signup', async (req, res) => {
         if (!reffer_user) {
             return res.status(400).render('signup', {
                 title: 'Signup',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Refferal Code is Invalid', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -230,7 +230,7 @@ router.post('/signup', async (req, res) => {
         logger.logError(err);
         res.status(500).render('signup', {
             title: 'Signup',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
             error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
         });
     }
@@ -245,7 +245,7 @@ router.post('/login', async (req, res) => {
         if (!email || !emailRegex.test(email)) {
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -254,7 +254,7 @@ router.post('/login', async (req, res) => {
         if (!password) {
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'Password is Required', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -264,7 +264,7 @@ router.post('/login', async (req, res) => {
         if (!user) {
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -272,7 +272,7 @@ router.post('/login', async (req, res) => {
         if (!user.status) {
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'User was banned', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -282,7 +282,7 @@ router.post('/login', async (req, res) => {
         if (!isMatch) {
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'Invalid Passsword', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -291,7 +291,7 @@ router.post('/login', async (req, res) => {
             await user.sendVerificationEmail();
             return res.status(400).render('login', {
                 title: 'Login',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
                 error: 'Email not verified. A verification email has been sent.', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -308,7 +308,7 @@ router.post('/login', async (req, res) => {
         logger.logError(err);
         res.status(500).render('login', {
             title: 'Login',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
             error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
         });
     }
@@ -323,7 +323,7 @@ router.get('/verify-email', async (req, res) => {
         if (!user || user.verificationCode !== verificationCode) {
             return res.status(400).render('verify-email', {
                 title: 'Email Verification',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid verification link', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -335,7 +335,7 @@ router.get('/verify-email', async (req, res) => {
         if (hoursDifference > 24) {
             return res.status(400).render('verify-email', {
                 title: 'Email Verification',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Verification link expired', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -352,7 +352,7 @@ router.get('/verify-email', async (req, res) => {
         logger.logError(err);
         res.status(500).render('verify-email', {
             title: 'Email Verification',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
             error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.bodye
         });
     }
@@ -362,7 +362,7 @@ router.get('/verify-email', async (req, res) => {
 router.get('/reset-password', (req, res) => {
     res.render('reset_password_request', {
         title: 'Reset Password',
-        metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+        metaDescription: 'Forgot your password? Reset it quickly on Refrut and regain access to your account to connect, collaborate, and grow within our startup and tech community.',
         error: null, message: null, auth_page: true, req: req, form_data: req.body
     });
 });
@@ -375,7 +375,7 @@ router.post('/reset-password', async (req, res) => {
         if (!user) {
             return res.status(400).render('reset_password_request', {
                 title: 'Reset Password',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Forgot your password? Reset it quickly on Refrut and regain access to your account to connect, collaborate, and grow within our startup and tech community.',
                 error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -393,7 +393,7 @@ router.post('/reset-password', async (req, res) => {
 
         res.render('reset_password_request', {
             title: 'Reset Password',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Forgot your password? Reset it quickly on Refrut and regain access to your account to connect, collaborate, and grow within our startup and tech community.',
             error: null, message: 'Password reset link has been sent to your email.', auth_page: true, req: req, form_data: req.body
         });
     } catch (err) {
@@ -401,7 +401,7 @@ router.post('/reset-password', async (req, res) => {
         logger.logError(err);
         res.status(500).render('reset_password_request', {
             title: 'Reset Password',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Forgot your password? Reset it quickly on Refrut and regain access to your account to connect, collaborate, and grow within our startup and tech community.',
             error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
         });
     }
@@ -415,14 +415,14 @@ router.get('/reset-password/:token', async (req, res) => {
         if (!user) {
             return res.status(400).render('reset_password_form', {
                 title: 'Reset Password',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid or expired token', token, message: null, auth_page: true, req: req, form_data: req.body
             });
         }
 
         res.render('reset_password_form', {
             title: 'Reset Password',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
             error: null, token, message: null, auth_page: true, req: req, form_data: req.body
         });
     } catch (err) {
@@ -430,7 +430,7 @@ router.get('/reset-password/:token', async (req, res) => {
         logger.logError(err);
         res.status(500).render('reset_password_form', {
             title: 'Reset Password',
-            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
             error: 'Server Error', token, message: null, auth_page: true, req: req, form_data: req.body
         });
     }
@@ -445,7 +445,7 @@ router.post('/reset-password/:token', async (req, res) => {
         if (!user) {
             return res.status(400).render('reset_password_form', {
                 title: 'Reset Password',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Invalid or expired token', token, message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -453,7 +453,7 @@ router.post('/reset-password/:token', async (req, res) => {
         if (password !== confirmPassword) {
             return res.status(400).render('reset_password_form', {
                 title: 'Reset Password',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Passwords do not match', token, message: null, auth_page: true, req: req, form_data: req.body
             });
         }
@@ -463,7 +463,7 @@ router.post('/reset-password/:token', async (req, res) => {
         if (!password || !passwordRegex.test(password)) {
             return res.status(400).render('reset_password_form', {
                 title: 'Reset Password',
-                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
                 error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', token, message: null, auth_page: true, req: req, form_data: req.body
             });
         }
