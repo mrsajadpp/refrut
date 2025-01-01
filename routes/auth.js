@@ -220,8 +220,6 @@ router.post('/signup', async (req, res) => {
         const newUser = new User({ user_name, email, dob: await convertToISO(dob), reff_code: await generateUniqueRefCode(), reffer_user: reffer_user._id, password, position, profile_url, sex });
         await newUser.save();
 
-        reffer_user.extendExpiryDateByOneMonth();
-
         await newUser.sendVerificationEmail(); 
 
         res.status(500).render('verify-email', {
@@ -358,6 +356,11 @@ router.get('/verify-email', async (req, res) => {
         user.verificationCode = undefined; // Clear the verification code
         user.verificationCodeCreatedAt = undefined; // Clear the verification code creation time
         await user.save();
+
+        let reffer_user = await User.findOne({ _id: user.reffer_user });
+        reffer_user.extendExpiryDateByOneMonth();
+
+        reffer_user.notifyRefferer(user.user_name)  // Notify the refferer
 
         res.status(500).render('verify-email', {
             title: 'Signup',

@@ -380,6 +380,62 @@ userSchema.methods.sendPreExpiryNotificationEmail = async function () {
     await transporter.sendMail(mailOptions);
 };
 
+userSchema.methods.notifyRefferer = async function (newUserName) {
+    const user = this;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'noreply.bowldot@gmail.com',
+            pass: process.env.APP_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: 'Refrut. <noreply.bowldot@gmail.com>',
+        to: user.email,
+        subject: 'New Member Joined Using Your Referral Code',
+        text: `Dear ${user.user_name}, a new member named ${newUserName} has joined using your referral code.`,
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Member Joined - Refrut</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #f5f5f5; padding: 20px; }
+        .content { font-size: 16px; color: #333333; line-height: 1.6; text-align: left; }
+        .content p { margin: 10px 0; }
+        .footer { text-align: center; font-size: 12px; color: #888888; padding: 20px; }
+        .footer img { margin-top: 10px; height: 30px; }
+    </style>
+</head>
+<body>
+    <table class="container" align="center">
+        <tr>
+            <td class="content">
+                <p>Dear <strong>${user.user_name}</strong>,</p>
+                <p>A new member named <strong>${newUserName}</strong> has joined using your referral code.</p>
+                <p>Thank you for referring new members to Refrut!</p>
+                <p>Warm regards,<br>The Refrut Team</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <p>© Refrut. by Grovix Lab. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+`
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
 // Scheduled task to check for expired accounts and send notification
 cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
     const expiredUsers = await User.find({ accountExpiryDate: { $lt: new Date() }, status: true });
