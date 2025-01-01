@@ -1,5 +1,6 @@
 <div class="container">
     <link rel="stylesheet" href="/css/auth.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <form action="/auth/signup" method="post">
         <div class="logo_area">
@@ -45,7 +46,7 @@
                         d='M20 21v-8c0-1.09-.91-2-2-2H6c-1.09 0-2 .91-2 2v8m-2 0h20M7 7v4m5-4v4m5-4v4M7 4v.5m5-.5v.5m5-.5v.5' />
                 </svg>
             </div>
-            <input id="dateInput" oninput="formatDate(this)" placeholder="Select a date (dd/mm/yyy)" id="dob" name="dob"
+            <input id="dateInput" oninput="formatDate(this)" placeholder="Select a date (dd/mm/yyy)" name="dob"
                 value="<%= form_data ? form_data.dob : '' %>">
         </div>
         <!-- Ref code -->
@@ -96,7 +97,8 @@
                     >Developer</option>
                 <option value="student" <%=form_data && form_data.position==='student' ? 'selected' : '' %>>Student
                 </option>
-                <option value="startup_founder" <%=form_data && form_data.position==='startup_founder' ? 'selected' : '' %>
+                <option value="startup_founder" <%=form_data && form_data.position==='startup_founder' ? 'selected' : ''
+                    %>
                     >Startup
                     Founder</option>
                 <option value="other" <%=form_data && form_data.position==='other' ? 'selected' : '' %>>Other</option>
@@ -132,6 +134,10 @@
         </div>
     </form>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 
     <script>
         let button = document.querySelector(".click_button");
@@ -153,6 +159,12 @@
         //     var today = new Date().toISOString().split('T')[0];
         //     dateInput.setAttribute('max', today);
         // });
+        $("#dateInput").flatpickr({
+            disableMobile: "true",
+            dateFormat: "d/m/Y", 
+            allowInput: true,
+            maxDate: "today",
+        });
 
         function formatDate(input) {
             // Remove non-digit characters
