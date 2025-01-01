@@ -24,11 +24,12 @@ async function fetchMediumStories() {
         const stories = feed.items.map(item => {
           // Extract thumbnail and description from the content field
           const content = item['content:encoded'];
-          const thumbnailMatch = content.match(/<img src="(.*?)"/);
+          const thumbnailMatch = content.match(/src="(.*?)"/);
           const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null;
     
           const descriptionMatch = content.match(/<p>(.*?)<\/p>/);
           const description = descriptionMatch ? descriptionMatch[1] : null;
+          
     
           return {
             title: item.title,
