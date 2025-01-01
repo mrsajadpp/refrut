@@ -217,7 +217,7 @@ router.post('/signup', async (req, res) => {
         }
 
         // Create new user
-        const newUser = new User({ user_name, email, dob: convertToISO(dob), reff_code: await generateUniqueRefCode(), reffer_user: reffer_user._id, password, position, profile_url, sex });
+        const newUser = new User({ user_name, email, dob: await convertToISO(dob), reff_code: await generateUniqueRefCode(), reffer_user: reffer_user._id, password, position, profile_url, sex });
         await newUser.save();
 
         reffer_user.extendExpiryDateByOneMonth();
