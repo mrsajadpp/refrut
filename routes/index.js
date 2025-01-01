@@ -113,7 +113,7 @@ router.get('/partners', async (req, res) => {
         res.render('index/partners', {
             title: "Partners",
             metaDescription: 'Explore our valued partners at Refrut who contribute to our mission of innovation and growth. From technology to marketing, we collaborate with industry leaders to bring cutting-edge solutions and services to our community.',
-            error: null, message: null, auth_page: true, req: req, ogImage: 'blog.webp'
+            error: null, message: null, auth_page: true, req: req, ogImage: 'partners.webp'
         });
     } catch (err) {
         console.error(err);
@@ -121,7 +121,7 @@ router.get('/partners', async (req, res) => {
         res.status(500).render('index/partners', {
             title: "Partners",
             metaDescription: 'Explore our valued partners at Refrut who contribute to our mission of innovation and growth. From technology to marketing, we collaborate with industry leaders to bring cutting-edge solutions and services to our community.',
-            error: 'Server error', message: null, auth_page: true, req: req, ogImage: 'blog.webp'
+            error: 'Server error', message: null, auth_page: true, req: req, ogImage: 'partners.webp'
         });
     }
 });
