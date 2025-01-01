@@ -7,13 +7,22 @@ const { default: mongoose } = require('mongoose');
 const moment = require('moment');
 
 router.get('/', (req, res) => {
-    const originalExpiryDate = moment(req.session.user.accountExpiryDate).format('DD/MM/YYYY');
-    const updatedExpiryDate = moment(req.session.user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
-    res.render('user/app', {
-        title: "Refrut - Connect, Collaborate, and Grow with Startups & Tech Innovators",
-        metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-        error: null, message: null, auth_page: true, req: req, originalExpiryDate, updatedExpiryDate
-    });
+    try {
+        const originalExpiryDate = moment(req.session.user.accountExpiryDate).format('DD/MM/YYYY');
+        const updatedExpiryDate = moment(req.session.user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
+        res.render('user/app', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, updatedExpiryDate
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.render('user/app', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate, updatedExpiryDate
+        });
+    }
 });
 
 
