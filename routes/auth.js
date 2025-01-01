@@ -273,7 +273,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).render('login', {
                 title: 'Login',
                 metaDescription: 'Log in to Refrut to connect with a thriving community of startups and tech enthusiasts. Access exclusive resources, collaborate, and grow your network.',
-                error: 'User was banned or expired account', message: null, auth_page: true, req: req, form_data: req.body
+                error: 'User was banned', message: null, auth_page: true, req: req, form_data: req.body
             });
         }
 
