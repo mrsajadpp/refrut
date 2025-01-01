@@ -216,7 +216,7 @@ router.post('/login', async (req, res) => {
         }
 
         // Find user by email
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email, status: true });
         if (!user) {
             return res.status(400).render('login', { title: 'Login', error: 'User does not exist', form_data: req.body, message: null, auth_page: true });
         }
