@@ -1,3 +1,22 @@
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
+html {
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: "Ahrefs";
+    src: url('/fonts/ahrefs-regular.ttf');
+}
+
+@font-face {
+    font-family: "Garamond";
+    src: url('/fonts/ITCGaramondStd-LtNarrowIta.otf');
+}
+
+
 * {
     margin: 0px;
     padding: 0px;
