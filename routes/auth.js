@@ -52,7 +52,7 @@ router.get('/signup', (req, res) => {
         res.render('signup', {
             title: 'Signup',
             metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
-            error: null, message: null, auth_page: true, req: req, form_data: null
+            error: null, message: null, auth_page: true, req: req, form_data: req.query
         });
     } catch (err) {
         console.error(err);
