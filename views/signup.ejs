@@ -159,11 +159,13 @@
         //     var today = new Date().toISOString().split('T')[0];
         //     dateInput.setAttribute('max', today);
         // });
+
+        const maxDate = new Date();
         $("#dateInput").flatpickr({
             disableMobile: "true",
-            dateFormat: "d/m/Y", 
+            dateFormat: "d/m/Y",
             allowInput: false,
-            maxDate: "today",
+            maxDate: maxDate.setFullYear(maxDate.getFullYear() - 14),
         });
 
         function formatDate(input) {
