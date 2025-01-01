@@ -1,0 +1,141 @@
+<style>
+    .container {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        box-sizing: border-box;
+        margin-top: 60px;
+    }
+
+    /* About Section */
+    .about-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+    }
+
+    .about-content {
+        flex: 1;
+        max-width: 50%;
+    }
+
+    .about-content h1 {
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        color: #1a202c;
+        /* Dark gray */
+    }
+
+    .about-content p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #4a5568;
+        text-align: start;
+    }
+
+    .about-image {
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        justify-content: center;
+        box-shadow: none !important;
+    }
+
+    .about-image img {
+        max-width: 60%;
+        height: auto;
+        box-shadow: none !important;
+    }
+
+    /* Our Mission Section */
+    .our-mission {
+        margin-bottom: 3rem;
+    }
+
+    .our-mission h2 {
+        font-size: 23px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #1a202c;
+    }
+
+    .our-mission p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #4a5568;
+    }
+
+    /* Our Team Section */
+    .our-team {
+        margin-bottom: 3rem;
+    }
+
+    .our-team h2 {
+        font-size: 23px;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #1a202c;
+    }
+
+    .team-members {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+    }
+
+    .team-member {
+        text-align: center;
+    }
+
+    .team-member h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a202c;
+    }
+
+    .team-member p {
+        font-size: 1rem;
+        color: #4a5568;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .about-section {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .about-content,
+        .about-image {
+            max-width: 100%;
+        }
+
+        .our-team .team-members {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+<div class="container">
+    <section class="about-section">
+        <div class="about-content">
+            <h1>About Refrut</h1>
+            <p>Refrut is a personal finance tool designed to help users manage their expenses, track income, and gain
+                insights into their spending habits. With easy-to-understand charts and statistics, Refrut makes it simple
+                to take control of your financial future.</p>
+        </div>
+        <div class="about-image">
+            <img src="/img/moneygoas.png" alt="About Refrut Illustration">
+        </div>
+    </section>
+
+    <section class="our-mission">
+        <h2>Our Mission</h2>
+        <p>Our mission is to empower individuals to understand their financial behavior and make smarter decisions with
+            their money. We believe everyone should have access to tools that help them achieve financial freedom.</p>
+    </section>
+</div>

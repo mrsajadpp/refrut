@@ -1,0 +1,277 @@
+<link rel="stylesheet" href="/css/transaction.css">
+<div class="auth_container">
+    <form action="/app/transactions" method="POST" class="auth_form">
+        <!-- Transaction Date -->
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                </svg>
+            </div>
+            <input type="text" id="transaction_date" name="transaction_date" placeholder="DD/MM/YYYY"
+                value="<%= locals.form_data ? form_data.transaction_date : '' %>" maxlength="10"
+                pattern="\d{2}/\d{2}/\d{4}" oninput="formatDate(this)" onkeypress="return isNumberOrSlash(event)"
+                value="<%= locals.form_data ? form_data.transaction_date : '' %>" required>
+        </div>
+
+        <div id="transactionsContainer" style="width: 100%;">
+            <!-- Transaction entries will be added here -->
+        </div>
+
+        <div class="input_button secondary">
+            <button type="button" id="addTransactionButton" class="secondary">
+                <div class="button_text">
+                    Add More
+                </div>
+                <div class="button_icon">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                        <path d='M18 12h-6m0 0H6m6 0V6m0 6v6' />
+                    </svg>
+                </div>
+            </button>
+        </div>
+
+        <div class="input_button">
+            <button type="submit" onclick="loadButton();" class="click_button">
+                <span class="button__text">Submit  Transactions</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<template id="transactionTemplate">
+    <div class="transaction-group">
+        <!-- Amount Input -->
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <input type="number" name="amount[]" step="0.01" placeholder="Amount" required>
+        </div>
+
+        <!-- Transaction Type -->
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                </svg>
+            </div>
+            <select name="transaction_type[]" required class="transaction-type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+
+        <!-- Category -->
+        <div class="input_box">
+            <div class="input_icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                    <path d="M6 6h.5a.5.5 0 01.5.5v.5a.5.5 0 01-.5.5H6a.5.5 0 01-.5-.5V6.5A.5.5 0 016 6z" />
+                </svg>
+            </div>
+            <select name="category[]" required class="category-select">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+
+        <div class="input_button box" id="removeTransactionButton">
+            <button type="button" class="tertary">
+                <div class="button_text">
+                    Remove
+                </div> &nbsp;
+                <div class="button_icon">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                        stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                        <path d='M18 6 6 18M6 6l12 12' />
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </div>
+</template>
+
+<script>
+    let button = document.querySelector(".click_button");
+
+    const loadButton = () => {
+        button.classList.add('button__loading');
+    }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const expenseCategories = [
+            "Housing", "Utilities", "Groceries", "Transportation", "Healthcare", "Entertainment", "Dining Out", "Clothing",
+            "Education", "Travel", "Personal Care", "Fitness", "Insurance", "Debt Repayment", "Savings", "Investments",
+            "Technology", "Gifts", "Charity", "Childcare", "Pets", "Home Improvement", "Subscriptions", "Legal Fees",
+            "Events and Celebrations", "Professional Services", "Taxes", "Luxury", "Hobbies", "Alcohol and Tobacco",
+            "Fines and Penalties", "Miscellaneous"
+        ];
+
+        const receiveCategories = [
+            "Salary", "Business Revenue", "Freelancing", "Investments", "Rental Income", "Government Benefits", "Gifts",
+            "Inheritances", "Prizes", "Side Hustles", "Royalties", "Crowdfunding", "Refunds", "Grants", "Scholarships",
+            "Tips", "Pension", "Dividends", "Alimony/Child Support", "Stock Sales", "Affiliate Marketing", "Consulting Fees",
+            "Event Hosting", "Intellectual Property", "Barter or Trade", "Cryptocurrency", "Reselling", "Loans",
+            "Partnership Shares", "Carpool Income", "Miscellaneous"
+        ];
+
+        const transactionsContainer = document.getElementById('transactionsContainer');
+        const addTransactionButton = document.getElementById('addTransactionButton');
+        const template = document.getElementById('transactionTemplate');
+
+        let transactionCount = 0;  // Counter for tracking the number of transactions
+
+
+        function populateCategories(selectElement, categories) {
+            // Keep the first option
+            selectElement.innerHTML = '<option value="">Select Category</option>';
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.toLowerCase().replace(/ /g, '_');
+                option.textContent = category;
+                selectElement.appendChild(option);
+            });
+        }
+
+        function addTransactionEntry() {
+            const clone = template.content.cloneNode(true);
+            const transactionTypeSelect = clone.querySelector('.transaction-type');
+            const categorySelect = clone.querySelector('.category-select');
+            const removeButton = clone.querySelector('#removeTransactionButton');
+            const transactionGroup = clone.querySelector('.transaction-group');
+
+            transactionCount++;  // Increment the transaction count
+
+            // Only show the "Remove Transaction" button for transactions after the first one
+            if (transactionCount > 1) {
+                removeButton.style.display = 'flex';  // Show remove button
+            } else {
+                removeButton.style.display = 'none';  // Hide remove button for the first transaction
+            }
+
+            transactionTypeSelect.addEventListener('change', function () {
+                if (this.value === 'expense') {
+                    populateCategories(categorySelect, expenseCategories);
+                } else {
+                    populateCategories(categorySelect, receiveCategories);
+                }
+            });
+
+            // Remove transaction functionality
+            removeButton.addEventListener('click', function () {
+                transactionGroup.remove();
+                transactionCount--; // Decrement the transaction count
+            });
+
+
+            // Initialize categories based on default selection
+            populateCategories(categorySelect, receiveCategories);
+            transactionsContainer.appendChild(clone);
+        }
+
+        addTransactionButton.addEventListener('click', addTransactionEntry);
+
+        // Add first transaction entry
+        addTransactionEntry();
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dateInput = document.getElementById('transaction_date');
+
+        // Set today as default if no value
+        if (!dateInput.value) {
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+            dateInput.value = `${day}/${month}/${year}`;
+        }
+
+        // Validate date on blur
+        dateInput.addEventListener('blur', function () {
+            validateDate(this);
+        });
+    });
+
+    function isNumberOrSlash(evt) {
+        const charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode === 47) { // forward slash
+            return true;
+        }
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    function formatDate(input) {
+        let value = input.value.replace(/\D/g, '');
+
+        // Limit to 8 digits
+        if (value.length > 8) {
+            value = value.slice(0, 8);
+        }
+
+        // Format as DD/MM/YYYY
+        if (value.length >= 4) {
+            const day = value.slice(0, 2);
+            const month = value.slice(2, 4);
+            const year = value.slice(4);
+
+            if (value.length > 4) {
+                input.value = `${day}/${month}/${year}`;
+            } else {
+                input.value = `${day}/${month}`;
+            }
+        } else if (value.length > 2) {
+            input.value = `${value.slice(0, 2)}/${value.slice(2)}`;
+        } else {
+            input.value = value;
+        }
+    }
+
+    function validateDate(input) {
+        const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const matches = input.value.match(datePattern);
+
+        if (!matches) {
+            input.setCustomValidity('Please enter a valid date in DD/MM/YYYY format');
+            return false;
+        }
+
+        const day = parseInt(matches[1], 10);
+        const month = parseInt(matches[2], 10);
+        const year = parseInt(matches[3], 10);
+
+        // Create a date object and check if it's valid
+        const date = new Date(year, month - 1, day);
+        const today = new Date();
+
+        if (date > today) {
+            input.setCustomValidity('Date cannot be in the future');
+            return false;
+        }
+
+        if (date.getDate() !== day || date.getMonth() + 1 !== month || date.getFullYear() !== year) {
+            input.setCustomValidity('Please enter a valid date');
+            return false;
+        }
+
+        input.setCustomValidity('');
+        return true;
+    }
+</script>

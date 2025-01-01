@@ -1,0 +1,474 @@
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-straight/css/uicons-solid-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-straight/css/uicons-bold-straight.css');
+@import url('https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
+html {
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: "Ahrefs";
+    src: url('/fonts/ahrefs-regular.ttf');
+}
+
+@font-face {
+    font-family: "Garamond";
+    src: url('/fonts/ITCGaramondStd-LtNarrowIta.otf');
+}
+
+/* 
+@font-face {
+    font-family: "Gilroy-Medium";
+    src: url('/fonts/gilroy/Gilroy-Medium.ttf');
+}
+
+@font-face {
+    font-family: "Gilroy-ExtraBold";
+    src: url('/fonts/gilroy/Gilroy-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: url('/fonts/gilroy/Gilroy-Bold.ttf');
+}
+
+@font-face {
+    font-family: "Gilroy-Light";
+    src: url('/fonts/gilroy/Gilroy-Light.ttf');
+}
+
+@font-face {
+    font-family: "Gilroy-Heavy";
+    src: url('/fonts/gilroy/Gilroy-Heavy.ttf');
+} */
+
+*,
+body {
+    margin: 0px;
+    padding: 0px;
+    font-size: 16px;
+    font-family: "Ahrefs";
+}
+
+/* Hero */
+
+.main {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    min-height: 90vh;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    z-index: -1;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-title h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+    font-family: "Garamond";
+}
+
+.hero-title span {
+    position: relative;
+    color: #0078e8;
+    font-weight: bold;
+    font-size: 2.5rem;
+    display: inline-block;
+}
+
+.hero-description {
+    font-size: 0.9rem;
+    color: #fff;
+    margin-top: 10px;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.5;
+    font-family: "Ahrefs";
+}
+
+@media (min-width: 768px) {
+    .hero-description {
+        font-size: 1.2rem;
+    }
+
+    .hero-title h2 {
+        font-size: 3rem;
+    }
+
+    .hero-title h2 span {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-description {
+        font-size: 1.4rem;
+    }
+
+    .hero-title h2 {
+        font-size: 3.5rem;
+    }
+
+    .hero-title h2 span {
+        font-size: 3.5rem;
+    }
+}
+
+/* Call to action */
+.about-us {
+    padding: 60px 20px;
+    /* Light background to differentiate from the hero */
+}
+
+.about-us .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    max-width: 80%;
+    /* Ensures text takes half of the space */
+    padding-right: 20px;
+}
+
+.about-title {
+    font-size: 2.5rem;
+    font-family: "Garamond";
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-size: 1rem;
+    font-family: "Ahrefs";
+    color: #666;
+    color: #666;
+    line-height: 1.5;
+    font-family: "Ahrefs";
+}
+
+.about-image {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .about-us .container {
+        flex-direction: column;
+    }
+
+    .about-content {
+        flex-direction: column;
+        /* Stack title and description on smaller screens */
+        text-align: center;
+    }
+
+    .about-text {
+        max-width: 100%;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .about-image {
+        max-width: 100%;
+    }
+}
+
+/* What We Do */
+.what-we-do {
+    padding: 60px 20px;
+    background-color: #f1f1f1;
+}
+
+.what-we-do .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: #333;
+    font-family: "Garamond";
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.section-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 40px;
+    color: #666;
+    line-height: 1.5;
+    font-family: "Ahrefs";
+    text-align: left;
+    max-width: 800px;
+}
+
+/* Adjust padding for 'What We Do' section to match 'About Us' */
+.what-we-do {
+    padding: 60px 20px;
+    /* Same as About Us section */
+}
+
+.service-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .service-block {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .service-block:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+}
+
+.service-text {
+    max-width: 100%;
+    padding-right: 20px;
+}
+
+@media (min-width: 768px) {
+    .service-text {
+        max-width: 50%;
+    }
+}
+
+.service-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-family: "Garamond";
+    margin-bottom: 10px;
+}
+
+.service-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    font-family: "Ahrefs";
+}
+
+.service-image {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.service-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .service-image {
+        width: 40%;
+        padding-top: 22.5%;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .what-we-do .section-title,
+    .what-we-do .section-description {
+        text-align: center;
+    }
+
+    .service-block {
+        text-align: center;
+    }
+
+    .service-text {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .service-title {
+        text-align: center;
+    }
+
+    .service-description {
+        text-align: center;
+    }
+}
+
+/* Meet the Team Section */
+.meet-the-team {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.meet-the-team .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.team-members {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.team-member {
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    max-width: 250px;
+}
+
+.team-image {
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.team-name {
+    font-size: 1.5rem;
+    color: #333;
+    font-family: "Garamond";
+    margin-bottom: 10px;
+}
+
+.team-role {
+    font-size: 1rem;
+    color: #0078e8;
+    font-family: "Ahrefs";
+    margin-bottom: 10px;
+}
+
+.team-bio {
+    font-size: 0.9rem;
+    color: #666;
+    font-family: "Ahrefs";
+    line-height: 1.5;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+    .meet-the-team .container .section-title {
+        text-align: center;
+    }
+
+    .meet-the-team .container .section-description {
+        text-align: center;
+    }
+}
+
+/* Meet the Team section */
+.meet-the-team .container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensuring the team members are centered */
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* Adjust the spacing as needed */
+}
+
+.team-member {
+    flex: 1 1 200px;
+    /* Ensures each team member takes up a minimum of 200px but can grow */
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    /* Center the team grid */
+    .meet-the-team .container {
+        align-items: center;
+        /* Center content */
+        padding: 0 20px;
+        /* Ensure no padding issues */
+    }
+
+    .team-members {
+        display: flex;
+        flex-direction: column;
+        /* Stack the team members vertically */
+        align-items: center;
+        /* Center the team members */
+        gap: 20px;
+        /* Adjust the spacing between members */
+    }
+
+    .team-member {
+        width: 90%;
+        /* Make the team members take up 90% of the container's width */
+        max-width: 300px;
+        /* Limit the size of each team member box */
+    }
+}

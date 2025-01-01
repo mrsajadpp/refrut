@@ -1,0 +1,321 @@
+header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background: #fff;
+    position: fixed;
+    top: 0px;
+    z-index: 998;
+}
+
+header.mobile_header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    border-bottom: 1px solid #ccc;
+}
+
+header.mobile_header .header_menu {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header.mobile_header .header_menu button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+header.mobile_header .header_logo {
+    width: calc(100% - 60px);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+header.mobile_header .header_logo a {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    color: #000;
+}
+
+header.mobile_header .header_logo a img {
+    width: 120px;
+}
+
+.mobile_menu {
+    width: 70%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    background: #fff;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: 1000;
+    border-right: 1px solid #ccc;
+}
+
+.mobile_menu.active {
+    transform: translateX(0%);
+}
+
+.mobile_menu .menu_header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    border-bottom: 1px solid #ccc;
+}
+
+.mobile_menu .menu_header .menu_close {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile_menu .menu_header .menu_close button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.mobile_menu .menu {
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    overflow-y: auto;
+}
+
+.mobile_menu .menu ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.mobile_menu .menu ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding: 15px 20px;
+}
+
+.mobile_menu .menu ul li a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    color: #000;
+}
+
+.mobile_menu .menu ul li a .menu_logo {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.mobile_menu .menu ul li a .menu_text {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.mobile_menu .menu ul li a .feedback_logo,
+.mobile_menu .menu ul li a .feedback_text {
+    color: #654cbd;
+}
+
+.mobile_menu .menu ul li a .feedback_logo.red,
+.mobile_menu .menu ul li a .feedback_text.red {
+    color: red;
+}
+
+.desktop_header {
+    width: 330px;
+    height: 100vh;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+.desktop_header .header_logo {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding:40px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.desktop_header .header_logo a {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    color: #000;
+}
+
+.desktop_header .header_logo a img {
+    width: 120px;
+}
+
+.desktop_header .header_menu {
+    width: 100%;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.desktop_header .header_menu ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.desktop_header .header_menu ul li {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding: 13px 30px;
+}
+
+.desktop_header .header_menu ul li a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    color: #000;
+}
+
+.desktop_header .header_menu ul li a .menu_logo {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.desktop_header .header_menu ul li a .menu_text {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.desktop_header .header_menu ul li a .feedback_logo,
+.desktop_header .header_menu ul li a .feedback_text {
+    color: #654cbd;
+}
+
+.desktop_header .header_menu ul li a .feedback_logo.red,
+.desktop_header .header_menu ul li a .feedback_text.red {
+    color: red;
+}
+
+@media (min-width: 768px) {
+    header.mobile_header {
+        display: none;
+    }
+
+    .mobile_menu {
+        display: none;
+    }
+
+    .desktop_header {
+        display: flex;
+    }
+
+    body {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
+
+    .container {
+        width: calc(100% - 330px);
+        margin: 0px;
+        margin-top: 0px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    header.mobile_header {
+        display: flex;
+    }
+
+    .mobile_menu {
+        display: flex;
+    }
+
+    .desktop_header {
+        display: none;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+}

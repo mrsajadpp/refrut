@@ -1,0 +1,120 @@
+<style>
+  :root {
+    --primary-color: #654cbd;
+    --text-color: #333;
+    --highlight-color: #654cbd;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+  }
+
+  .error {
+    color: #dc3545;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #ffe5e5;
+    margin-bottom: 1rem;
+  }
+
+  .history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 15px;
+  }
+
+  .month-card {
+    padding: 1.2rem;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  .month-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--highlight-color);
+    margin-bottom: 0.3rem;
+  }
+
+  .year {
+    font-size: 1.1rem;
+    color: var(--text-color);
+  }
+
+  .no-history-message {
+    color: var(--highlight-color);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .history-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .month-card {
+      padding: 1rem;
+    }
+
+    .month-name {
+      font-size: 1.1rem;
+    }
+
+    .year {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .history-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<% if (error) { %>
+  <p class="error"><%= error %></p>
+<% } else if (months.length === 0) { %>
+  <div class="no-history-message">
+    <p style="font-size: 16px; color: #333;">No history available.</p>
+  </div>
+<% } else { %>
+  <div class="history-grid">
+    <% 
+      const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      
+      months.forEach(month => {
+        const monthName = monthNames[parseInt(month.month) - 1];
+    %>
+      <a href="/app/history/<%= month.year %>/<%= month.month %>" class="month-card">
+        <div class="month-name"><%= monthName %></div>
+        <div class="year"><%= month.year %></div>
+      </a>
+    <% }) %>
+  </div>
+<% } %>

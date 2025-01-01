@@ -1,0 +1,19 @@
+<h1>Email Verification</h1>
+
+<% if (error) { %>
+    <p
+        style="color: red; font-size: 18px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid red; background-color: #f8d7da; border-radius: 5px; max-width: 600px; margin: 20px auto;">
+        <%= error %>
+    </p>
+    <% } else if (message) { %>
+        <p
+            style="color: green; font-size: 18px; font-weight: bold; text-align: center; padding: 10px; border: 1px solid green; background-color: #d4edda; border-radius: 5px; max-width: 600px; margin: 20px auto;">
+            <%= message %>
+        </p>
+
+        <script>
+            setTimeout(() => {
+                window.location.href = '/auth/login';
+            }, 2000);
+        </script>
+        <% } %>

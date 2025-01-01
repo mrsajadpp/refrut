@@ -1,0 +1,141 @@
+form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+form .logo_area {
+    margin-bottom: 20px;
+}
+
+form .logo_area img {
+    width: 150px;
+}
+
+form .label_box {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+form .label_box label {
+    font-weight: bold;
+}
+
+form .input_box {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+form .input_button {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    height: 45px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+form .input_box .input_icon {
+    color: #333;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form .input_box input,
+form .input_box select {
+    width: calc(100% - 30px);
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    padding-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+form .input_button button {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form .input_text {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    color: transparent;
+    display: none;
+}
+
+.click_button {
+    position: relative;
+}
+
+.click_button .button__text {
+    color: #fff;
+    transition: all 0.2s;
+}
+
+.button__loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.button__loading::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: button_loading_spinner 1s ease infinite;
+}
+
+@keyframes button_loading_spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}

@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="/css/auth.css">
+
+<form action="/auth/login" method="post">
+    <div class="logo_area">
+        <img src="/logo/refrut-text-logo.png" alt="logo">
+    </div>
+    <!-- <div class="label_box">
+        <span>Email</span>
+    </div> -->
+    <div class="input_box">
+        <div class="input_icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d='m2.357 7.714 6.98 4.654c.963.641 1.444.962 1.964 1.087.46.11.939.11 1.398 0 .52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327' />
+            </svg>
+        </div>
+        <input type="email" id="email" placeholder="Email" name="email" value="<%= form_data ? form_data.email : '' %>">
+    </div>
+    <!-- <div class="label_box">
+        <span>Password</span>
+    </div> -->
+    <div class="input_box">
+        <div class="input_icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d='M8 10V8c0-2.761 1.239-5 4-5s4 2.239 4 5v2M3.5 17.8v-4.6c0-1.12 0-1.68.218-2.107a2 2 0 0 1 .874-.875c.428-.217.988-.217 2.108-.217h10.6c1.12 0 1.68 0 2.108.217a2 2 0 0 1 .874.874c.218.428.218.988.218 2.108v4.6c0 1.12 0 1.68-.218 2.108a2 2 0 0 1-.874.874C18.98 21 18.42 21 17.3 21H6.7c-1.12 0-1.68 0-2.108-.218a2 2 0 0 1-.874-.874C3.5 19.481 3.5 18.921 3.5 17.8' />
+            </svg>
+        </div>
+        <input type="password" placeholder="Password" id="password" name="password">
+    </div>
+
+    <div class="input_text">
+        Forgot your password? <a href="/auth/reset-password">Click here</a>.
+    </div>
+
+    <div class="input_button">
+        <button type="submit" onclick="loadButton();" class="click_button">
+            <span class="button__text">Login</span>
+        </button>
+    </div>
+
+    <div class="input_text">
+        <p>If you don't have an account, <a href="/auth/signup">click here</a> to sign up.</p>
+    </div>
+</form>
+
+<script>
+    let button = document.querySelector(".click_button");
+
+    const loadButton = () => {
+        button.classList.add('button__loading');
+    }
+</script>

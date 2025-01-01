@@ -1,0 +1,103 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Ahrefs";
+    font-size: 16px;
+    min-height: 130vh;
+}
+
+.container {
+    margin-top: 60px !important;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+button,
+input, select {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+button .button_icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
+button .button_text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.error_box {
+    width: 50%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.error_box .error_icon,
+.error_box .close_icon {
+    width: 30px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.error_box .error_text {
+    width: calc(100% - 30px);
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: left;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.error_box.red {
+    border: 1px solid #ebdbd7;
+    background: #faefeb;
+}
+
+.error_box.red .error_icon {
+    color: #fc5659;
+}
+
+.error_box.green {
+    border: 1px solid #d3e5d5;
+    background: #f1f7f3;
+}
+
+.error_box.green .error_icon {
+    color: #74d387;
+}

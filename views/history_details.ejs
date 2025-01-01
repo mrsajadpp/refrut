@@ -1,0 +1,302 @@
+<style>
+    :root {
+        --primary-color: #654cbd;
+        --text-color: #333;
+        --highlight-color: #654cbd;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .error {
+        color: #dc3545;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #ffe5e5;
+        margin-bottom: 1rem;
+    }
+
+    .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .summary-card {
+        padding: 1rem;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .summary-card .label {
+        font-size: 0.9rem;
+        color: var(--text-color);
+    }
+
+    .summary-card .amount {
+        font-size: 1.4rem;
+        color: var(--highlight-color);
+        font-weight: bold;
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .day-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        cursor: pointer;
+        background: #fff;
+    }
+
+    .date-header {
+        font-size: 1.1rem;
+        color: var(--highlight-color);
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .day-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .day-summary div {
+        text-align: center;
+    }
+
+    .day-summary .label {
+        color: var(--text-color);
+        font-size: 0.8rem;
+    }
+
+    .day-summary .value {
+        color: var(--highlight-color);
+        font-weight: bold;
+    }
+
+    .transaction-count {
+        text-align: center;
+        color: var(--text-color);
+        font-size: 0.9rem;
+        padding: 0.5rem;
+        background: #f5f5f5;
+        border-radius: 4px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-color);
+    }
+
+    .transactions-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .transaction-item {
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+    }
+
+    .transaction-item .type {
+        color: var(--highlight-color);
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+
+    @media (max-width: 768px) {
+        .calendar-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .modal-content {
+            width: 95%;
+            padding: 1rem;
+        }
+    }
+
+    .amount.green {
+        color: green;
+    }
+    .amount.red {
+        color: red;
+    }
+
+    .value.green {
+        color: green;
+    }
+
+    .value.red {
+        color: red;
+    }
+
+    #modalDate {
+        font-size: 20px;
+    }
+</style>
+<% if (error) { %>
+    <p class="error">
+        <%= error %>
+    </p>
+<% } else { %>
+    <div class="summary-cards">
+        <div class="summary-card">
+            <div class="label">Total Income</div>
+            <div class="amount green">₹<%= totalReceived.toFixed(2) %></div>
+        </div>
+        <div class="summary-card">
+            <div class="label">Total Expense</div>
+            <div class="amount red">₹<%= totalLoss.toFixed(2) %></div>
+        </div>
+        <div class="summary-card">
+            <div class="label">Remaining Amount</div>
+            <div class="amount">₹<%= remainingAmount.toFixed(2) %></div>
+        </div>
+    </div>
+
+    <div class="calendar-grid">
+        <% Object.keys(transactionsByDay).forEach(date => {
+            const transactions = transactionsByDay[date].transactions;
+        %>
+            <div class="day-card" onclick="showTransactions('<%= date %>')">
+                <div class="date-header">
+                    <%= new Date(date).toLocaleDateString('en-US', { weekday: 'short', day: 'numeric' }) %>
+                </div>
+                <div class="day-summary">
+                    <div>
+                        <div class="label">Income</div>
+                        <div class="value green">₹<%= transactionsByDay[date].totalReceived.toFixed(2) %></div>
+                    </div>
+                    <div>
+                        <div class="label">Expense</div>
+                        <div class="value red">₹<%= transactionsByDay[date].totalLoss.toFixed(2) %></div>
+                    </div>
+                    <div>
+                        <div class="label">Balance</div>
+                        <div class="value">₹<%= transactionsByDay[date].remainingAmount.toFixed(2) %></div>
+                    </div>
+                </div>
+                <div class="transaction-count">
+                    <%= transactions.length %> Transaction<%= transactions.length !== 1 ? 's' : '' %>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalDate"></h2>
+                <button class="close-button" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalTransactions" class="transactions-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const transactionsByDay = <%- JSON.stringify(transactionsByDay) %>;
+
+        function showTransactions(date) {
+            const modal = document.getElementById('transactionModal');
+            const modalDate = document.getElementById('modalDate');
+            const modalTransactions = document.getElementById('modalTransactions');
+
+            modalDate.textContent = new Date(date).toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Helper function to format categories
+            function formatCategory(category) {
+                return category
+                    .split('_')  // Split the string by underscores
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize the first letter of each word
+                    .join(' ');  // Join the words back with a space
+            }
+
+            modalTransactions.innerHTML = transactionsByDay[date].transactions.map(transaction => `
+                <div class="transaction-item">
+                    <div class="type" style="color:${transaction.transaction_type == 'expense' ? 'red' : transaction.transaction_type == 'income' ? 'green' : '#654cbd' };">${transaction.transaction_type}</div>
+                    <div><strong>Amount:</strong> ₹${transaction.amount.toFixed(2)}</div>
+                    <div><strong>Category:</strong> ${formatCategory(transaction.category)}</div>
+                </div>
+            `).join('');
+
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('transactionModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('transactionModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+<% } %>
