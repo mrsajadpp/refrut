@@ -196,7 +196,11 @@ router.post('/signup', async (req, res) => {
     } catch (err) {
         console.error(err);
         logger.logError(err);
-        res.status(500).render('signup', { title: 'Signup', error: 'Server error', form_data: req.body, message: null, auth_page: true });
+        res.status(500).render('signup', {
+            title: 'Signup',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
+        });
     }
 });
 
@@ -207,29 +211,57 @@ router.post('/login', async (req, res) => {
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email || !emailRegex.test(email)) {
-            return res.status(400).render('login', { title: 'Login', error: 'Invalid email', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate password
         if (!password) {
-            return res.status(400).render('login', { title: 'Login', error: 'Password is required', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Password is Required', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Find user by email
-        const user = await User.findOne({ email, status: true });
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).render('login', { title: 'Login', error: 'User does not exist', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+
+        if (!user.status) {
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'User was banned', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).render('login', { title: 'Login', error: 'Invalid credentials', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid Passsword', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         if (!user.email_verified) {
             await user.sendVerificationEmail();
-            return res.status(400).render('login', { title: 'Login', error: 'Email not verified. A verification email has been sent.', form_data: req.body, message: null, auth_page: true });
+            return res.status(400).render('login', {
+                title: 'Login',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Email not verified. A verification email has been sent.', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Remove password from user object before adding to session
@@ -242,7 +274,11 @@ router.post('/login', async (req, res) => {
     } catch (err) {
         console.error(err);
         logger.logError(err);
-        res.status(500).render('login', { title: 'Login', error: 'Server error', form_data: req.body, message: null, auth_page: true });
+        res.status(500).render('login', {
+            title: 'Login',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
+        });
     }
 });
 
@@ -253,7 +289,11 @@ router.get('/verify-email', async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user || user.verificationCode !== verificationCode) {
-            return res.status(400).render('verify-email', { title: 'Email Verification', error: 'Invalid verification link', message: null, auth_page: true });
+            return res.status(400).render('verify-email', {
+                title: 'Email Verification',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid verification link', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         const currentTime = new Date();
@@ -261,7 +301,11 @@ router.get('/verify-email', async (req, res) => {
         const hoursDifference = timeDifference / (1000 * 60 * 60);
 
         if (hoursDifference > 24) {
-            return res.status(400).render('verify-email', { title: 'Email Verification', error: 'Verification link expired', message: null, auth_page: true });
+            return res.status(400).render('verify-email', {
+                title: 'Email Verification',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Verification link expired', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         user.email_verified = true;
@@ -270,17 +314,25 @@ router.get('/verify-email', async (req, res) => {
         user.verificationCodeCreatedAt = undefined; // Clear the verification code creation time
         await user.save();
 
-        res.render('verify-email', { title: 'Email Verification', message: 'Email verified successfully. You can now log in.', error: null, auth_page: true });
+        res.redirect('/auth/login');
     } catch (err) {
         console.error(err);
         logger.logError(err);
-        res.status(500).render('verify-email', { title: 'Email Verification', error: 'Server error', message: null, auth_page: true });
+        res.status(500).render('verify-email', {
+            title: 'Email Verification',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.bodye
+        });
     }
 });
 
 // GET route for password reset request page
 router.get('/reset-password', (req, res) => {
-    res.render('reset_password_request', { title: 'Reset Password', error: null, message: null, auth_page: true });
+    res.render('reset_password_request', {
+        title: 'Reset Password',
+        metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+        error: null, message: null, auth_page: true, req: req, form_data: req.body
+    });
 });
 
 // POST route to handle password reset request
@@ -289,7 +341,11 @@ router.post('/reset-password', async (req, res) => {
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).render('reset_password_request', { title: 'Reset Password', error: 'User does not exist', message: null, auth_page: true });
+            return res.status(400).render('reset_password_request', {
+                title: 'Reset Password',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'User does not exist', message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Generate a reset token and expiration time
@@ -303,11 +359,19 @@ router.post('/reset-password', async (req, res) => {
         // Send reset email (implement sendResetEmail method in User model)
         await user.sendResetEmail(resetToken);
 
-        res.render('reset_password_request', { title: 'Reset Password', message: 'Password reset link has been sent to your email.', error: null, auth_page: true });
+        res.render('reset_password_request', {
+            title: 'Reset Password',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: null, message: 'Password reset link has been sent to your email.', auth_page: true, req: req, form_data: req.body
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
-        res.status(500).render('reset_password_request', { title: 'Reset Password', error: 'Server error', message: null, auth_page: true });
+        res.status(500).render('reset_password_request', {
+            title: 'Reset Password',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
+        });
     }
 });
 
@@ -317,14 +381,26 @@ router.get('/reset-password/:token', async (req, res) => {
     try {
         const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
         if (!user) {
-            return res.status(400).render('reset_password_form', { title: 'Reset Password', error: 'Invalid or expired token', token, message: null, auth_page: true });
+            return res.status(400).render('reset_password_form', {
+                title: 'Reset Password',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid or expired token', token, message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
-        res.render('reset_password_form', { title: 'Reset Password', error: null, token, message: null, auth_page: true });
+        res.render('reset_password_form', {
+            title: 'Reset Password',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: null, token, message: null, auth_page: true, req: req, form_data: req.body
+        });
     } catch (err) {
         console.error(err);
         logger.logError(err);
-        res.status(500).render('reset_password_form', { title: 'Reset Password', error: 'Server error', token, message: null, auth_page: true });
+        res.status(500).render('reset_password_form', {
+            title: 'Reset Password',
+            metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+            error: 'Server Error', token, message: null, auth_page: true, req: req, form_data: req.body
+        });
     }
 });
 
@@ -335,17 +411,29 @@ router.post('/reset-password/:token', async (req, res) => {
     try {
         const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
         if (!user) {
-            return res.status(400).render('reset_password_form', { title: 'Reset Password', error: 'Invalid or expired token', token, message: null, auth_page: true });
+            return res.status(400).render('reset_password_form', {
+                title: 'Reset Password',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Invalid or expired token', token, message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         if (password !== confirmPassword) {
-            return res.status(400).render('reset_password_form', { title: 'Reset Password', error: 'Passwords do not match', token, message: null, auth_page: true });
+            return res.status(400).render('reset_password_form', {
+                title: 'Reset Password',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Passwords do not match', token, message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Validate password
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         if (!password || !passwordRegex.test(password)) {
-            return res.status(400).render('reset_password_form', { title: 'Reset Password', error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', token, message: null, auth_page: true });
+            return res.status(400).render('reset_password_form', {
+                title: 'Reset Password',
+                metaDescription: 'Bowl helps you manage your finances effortlessly. Track your income and expenses with ease, and make smarter financial decisions.',
+                error: 'Password must be at least 6 characters long and contain alphabets, numbers, and special symbols', token, message: null, auth_page: true, req: req, form_data: req.body
+            });
         }
 
         // Hash the new password and save it
