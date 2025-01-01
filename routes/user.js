@@ -6,10 +6,11 @@ const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
 const moment = require('moment');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const originalExpiryDate = moment(req.session.user.accountExpiryDate).format('DD/MM/YYYY');
-        const updatedExpiryDate = moment(req.session.user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
+        const originalExpiryDate = moment(user.accountExpiryDate).format('DD/MM/YYYY');
+        const updatedExpiryDate = moment(user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
         res.render('user/app', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
