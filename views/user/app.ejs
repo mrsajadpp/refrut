@@ -175,7 +175,7 @@
     const inviteLink = document.getElementById('myInput');
 
     copyButton.addEventListener('click', () => {
-        const link = inviteLink.href;
+        const link = inviteLink.value;
         navigator.clipboard.writeText(link).then(() => {
             alert('Invite link copied to clipboard!');
         }, (err) => {
