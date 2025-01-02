@@ -9,7 +9,12 @@ const moment = require('moment');
 router.get('/', async (req, res) => {
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
-        let referrals = await User.find({ reffer_user: user._id, status: true, email_verified: true }); // Changed to find all referrals
+        let referrals = await User.find({
+            reffer_user: user._id,
+            status: true,
+            email_verified: true,
+            accountExpiryDate: { $gt: new Date() } // Check if account is not expired
+        });
         const originalExpiryDate = moment(user.accountExpiryDate).format('DD/MM/YYYY');
         const updatedExpiryDate = moment(user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
         res.render('user/app', {
