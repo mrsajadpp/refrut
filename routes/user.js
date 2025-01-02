@@ -113,7 +113,7 @@ router.post('/profile/update', upload.single('profile_picture'), async (req, res
         if (req.file) {
             user.profile_url = `/pfp/${req.session.user._id}.jpg`;
         }
-
+ 
         await user.save();
 
         res.render('user/edit_profile', {
