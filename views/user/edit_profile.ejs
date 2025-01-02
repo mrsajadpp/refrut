@@ -130,7 +130,7 @@
         </div>
 
         <div class="tab-content">
-            <form action="/app/profile/update" method="post" style="margin: 0px;margin-top: -20px;">
+            <form action="/app/profile/update" method="post" enctype="multipart/form-data" style="margin: 0px;margin-top: -20px;">
                 <!-- <div class="label_box">
             <span>Name</span>
         </div> -->
@@ -190,8 +190,7 @@
                     </div>
                     <input id="pfp" type="text" readonly placeholder="Profile Picture" name="profile_url"
                         value="<%= form_data ? form_data.profile_url : user.profile_url %>">
-                    <input id="pfp-file" style="display: none;" type="file" placeholder="Profile Picture"
-                        name="profile_url">
+                    <input id="pfp-file" style="display: none;" type="file" placeholder="Profile Picture" name="profile_picture">
                 </div>
                 <!-- <div class="label_box">
             <span>Password</span>

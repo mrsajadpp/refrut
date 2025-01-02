@@ -1,10 +1,23 @@
 const express = require('express');
 const cookieSession = require('cookie-session');
+const multer = require('multer');
+const path = require('path');
 const router = express.Router();
 const logger = require('../logger');
 const User = require('../models/user');
 const { default: mongoose } = require('mongoose');
 const moment = require('moment');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/pfp');
+    },
+    filename: function (req, file, cb) {
+        cb(null, `${req.session.user._id}.jpg`);
+    }
+});
+
+const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
     try {
@@ -51,7 +64,7 @@ router.get('/profile/edit', async (req, res) => {
     }
 });
 
-router.post('/profile/update', async (req, res) => {
+router.post('/profile/update', upload.single('profile_picture'), async (req, res) => {
     const { user_name, position, sex } = req.body;
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
@@ -96,6 +109,11 @@ router.post('/profile/update', async (req, res) => {
         user.user_name = user_name || user.user_name;
         user.position = position || user.position;
         user.sex = sex || user.sex;
+
+        if (req.file) {
+            user.profile_url = `/pfp/${req.session.user._id}.jpg`;
+        }
+
         await user.save();
 
         res.render('user/edit_profile', {
