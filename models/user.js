@@ -129,7 +129,7 @@ userSchema.methods.sendVerificationEmail = async function () {
     const verificationUrl = `https://refrut.grovixlab.com/auth/verify-email?userId=${user._id}&verificationCode=${user.verificationCode}`;
 
     const mailOptions = {
-        from: 'Refrut. <refrut@grovixlab.com>',
+        from: 'Refrut <refrut@grovixlab.com>',
         to: user.email,
         subject: 'Email Verification',
         text: `Please verify your email by clicking the following link: ${verificationUrl}`,
@@ -212,7 +212,7 @@ userSchema.methods.sendResetEmail = async function (resetToken) {
     const resetUrl = `https://refrut.grovixlab.com/auth/reset-password/${resetToken}`;
 
     const mailOptions = {
-        from: 'Refrut. <refrut@grovixlab.com>',
+        from: 'Refrut <refrut@grovixlab.com>',
         to: user.email,
         subject: 'Password Reset',
         text: `You requested a password reset. Please click the following link to reset your password: ${resetUrl}. This link will expire in 6 minutes.`,
@@ -292,7 +292,7 @@ userSchema.methods.sendExpiryNotificationEmail = async function () {
     });
 
     const mailOptions = {
-        from: 'Refrut. <refrut@grovixlab.com>',
+        from: 'Refrut <refrut@grovixlab.com>',
         to: user.email,
         subject: 'Account Expired Due to Inactivity',
         text: `Dear ${user.user_name}, your account has expired due to inactivity. Please contact support if you have any questions.`,
@@ -351,7 +351,7 @@ userSchema.methods.sendPreExpiryNotificationEmail = async function () {
     });
 
     const mailOptions = {
-        from: 'Refrut. <refrut@grovixlab.com>',
+        from: 'Refrut <refrut@grovixlab.com>',
         to: user.email,
         subject: 'Account Expiration Notice',
         text: `Dear ${user.user_name}, your account will expire in 3 days due to inactivity. Please log in to keep your account active.`,
@@ -410,7 +410,7 @@ userSchema.methods.notifyRefferer = async function (newUserName) {
     });
 
     const mailOptions = {
-        from: 'Refrut. <refrut@grovixlab.com>',
+        from: 'Refrut <refrut@grovixlab.com>',
         to: user.email,
         subject: 'New Member Joined Using Your Referral Code',
         text: `Dear ${user.user_name}, a new member named ${newUserName} has joined using your referral code.`,
