@@ -105,17 +105,8 @@
                     <%= event.description.replace(/<[^>]*>?/gm, '').substring(0, 150) %>...
                 </p>
                 <div class="event-meta">
-                    <% if (event.place) { %>
-                        <p><strong>Place:</strong> <%= event.place %></p>
-                    <% } %>
                     <% if (event.location) { %>
                         <p><strong>Location:</strong> <%= event.location %></p>
-                    <% } %>
-                    <% if (event.event_start_date) { %>
-                        <p><strong>Start Date:</strong> <%= event.event_start_date %></p>
-                    <% } %>
-                    <% if (event.event_end_date) { %>
-                        <p><strong>End Date:</strong> <%= event.event_end_date %></p>
                     <% } %>
                 </div>
             </div>
