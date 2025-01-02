@@ -2,7 +2,11 @@ const axios = require('axios');
 
 class DiscordErrorLogger {
   constructor(webhookUrl) {
+    if (!webhookUrl) {
+      throw new Error('webhookUrl is undefined. Please set DISCORD_INVITE_WEBHOOK_URL.');
+    }
     this.webhookUrl = webhookUrl;
+    this.logError = this.logError.bind(this);
   }
 
   async logError(error) {
@@ -11,7 +15,7 @@ class DiscordErrorLogger {
         content: null,
         embeds: [{
           title: 'Server Error',
-          color: 15158332, 
+          color: 15158332,
           fields: [
             {
               name: 'Error Message',
@@ -26,15 +30,15 @@ class DiscordErrorLogger {
               value: new Date().toISOString()
             },
             {
-                name: 'Admin',
-                value: '<@895652387782549574>'
-              }
+              name: 'Admin',
+              value: '<@895652387782549574>'
+            }
           ]
         }]
       };
 
       await axios.post(this.webhookUrl, errorData);
-      
+
     } catch (err) {
       console.error('Failed to send error to Discord:', err);
     }
@@ -43,16 +47,20 @@ class DiscordErrorLogger {
 
 class DiscordInviteLogger {
   constructor(webhookUrl) {
+    if (!webhookUrl) {
+      throw new Error('webhookUrl is undefined. Please set DISCORD_INVITE_WEBHOOK_URL.');
+    }
     this.webhookUrl = webhookUrl;
+    this.logInvite = this.logInvite.bind(this);
   }
 
   async logInvite(inviterName, inviteeName) {
     try {
       const inviteData = {
-        content: `${inviterName} has invited ${inviteeName} to join! 🎉`,// Paragraph content
+        content: `${inviterName} has invited ${inviteeName} to join! 🎉`,
         embeds: [{
           title: 'Invitation Alert',
-          color: 3066993, 
+          color: 3066993,
           fields: [
             {
               name: 'Inviter',
@@ -81,4 +89,4 @@ const inviteLogger = new DiscordInviteLogger(process.env.DISCORD_INVITE_WEBHOOK_
 
 const logger = new DiscordErrorLogger(process.env.DISCORD_WEBHOOK_URL);
 
-module.exports = {  logError: logger.logError, logInvite: inviteLogger.logInvite };
+module.exports = { logError: logger.logError, logInvite: inviteLogger.logInvite };
