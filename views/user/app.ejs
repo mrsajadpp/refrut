@@ -148,6 +148,7 @@
 
         <div class="tabs">
             <div class="tab active" id="referrals-tab">Referrals</div>
+            <div class="tab active" id="referrals-tab" onclick="location.href = '/app/profile/edit'">Edit Profile</div>
         </div>
 
         <div class="tab-content" id="referrals-content">
@@ -161,6 +162,8 @@
                         <% }) %>
                 </div>
 
+                <br><br>
+                <h3 style="font-size: 16px;">Your Referral Link</h3>
                 <div class="referral-link">
                     <input type="text" id="myInput"
                         value="https://refrut.grovixlab.com/auth/signup?reff_code=<%- user.reff_code %>" readonly>
