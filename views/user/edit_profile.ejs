@@ -60,7 +60,9 @@
             border-bottom: 2px solid #ddd;
             padding-bottom: 0.5rem;
             overflow-x: auto;
+            /* Enables horizontal scrolling */
             white-space: nowrap;
+            /* Prevents tabs from wrapping to the next line */
         }
 
         .tab {
@@ -69,6 +71,8 @@
             color: #555;
             padding: 0.5rem 1rem;
             border-radius: 5px;
+            display: inline-block;
+            /* Ensures that tabs stay in one line */
         }
 
         .tab.active {
@@ -80,25 +84,55 @@
             margin-top: 1rem;
         }
 
-        .form-section {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 1rem;
+            justify-content: center;
         }
 
-        .form-section input,
-        .form-section button {
+        .grid-item {
+            width: 130px;
             padding: 1rem;
-            font-size: 1rem;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
+            border-radius: 8px;
+            text-align: center;
             box-sizing: border-box;
         }
 
-        .form-section button {
+        .grid-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+        }
+
+        .referral-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .referral-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .referral-link input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .referral-link button {
+            padding: 0.64rem 1rem;
+            border: none;
             background-color: #000;
             color: #fff;
+            border-radius: 5px;
             cursor: pointer;
         }
 
@@ -110,13 +144,82 @@
             user-select: none;
             /* Standard syntax */
         }
+
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ddd;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-picture:hover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-picture:hover .pencil-icon {
+            display: flex;
+        }
+
+        .pencil-icon {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .pencil-icon svg {
+            /* fill: white; */
+            stroke: white;
+            width: 24px;
+            height: 24px;
+        }
+
+        .hidden-input {
+            display: none;
+        }
     </style>
+
     <link rel="stylesheet" href="/css/profile_edit.css">
     <div class="dashboard-container">
         <div class="profile-section">
-            <div class="profile-picture">
-                <img src="<%- user.profile_url %>" alt="Profile Picture">
-            </div>
+            <form id="profile-form" action="/app/profile/update" method="POST" enctype="multipart/form-data">
+                <div class="profile-picture" onclick="triggerFileInput()">
+                    <img src="<%- user.profile_url %>" alt="Profile">
+                    <div class="pencil-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d='M6 9a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14.927-.01c-6.61-.908-11.31 4-10.927 10.51' />
+                            <path d='M3 13.066c2.78-.385 5.851 1.293 7.2 3.434' />
+                            <path
+                                d='M2.357 9.3c0-1.68 0-2.52.327-3.162a3 3 0 0 1 1.311-1.311C4.637 4.5 5.477 4.5 7.157 4.5h9.686c1.68 0 2.52 0 3.162.327a3 3 0 0 1 1.31 1.311c.328.642.328 1.482.328 3.162v5.4c0 1.68 0 2.52-.327 3.162a3 3 0 0 1-1.311 1.311c-.642.327-1.482.327-3.162.327H7.157c-1.68 0-2.52 0-3.162-.327a3 3 0 0 1-1.31-1.311c-.328-.642-.328-1.482-.328-3.162z' />
+                        </svg>
+                    </div>
+                    <input type="file" id="file-input" name="profile_picture" class="hidden-input"
+                        onchange="submitForm()">
+                </div>
+            </form>
+
             <div class="account-info">
                 <h2><%- user.user_name %></h2>
                 <p>Account Expiry: <%- originalExpiryDate %></p>
@@ -130,7 +233,7 @@
         </div>
 
         <div class="tab-content">
-            <form action="/app/profile/update" method="post" enctype="multipart/form-data"
+            <form action="/app/profile/update" class="form" method="post" enctype="multipart/form-data"
                 style="margin: 0px;margin-top: -20px;">
                 <!-- <div class="label_box">
             <span>Name</span>
@@ -262,6 +365,19 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function triggerFileInput() {
+            document.getElementById('file-input').click();
+        }
+
+        function submitForm() {
+            const fileInput = document.getElementById('file-input');
+            if (fileInput.files.length > 0) {
+                document.getElementById('profile-form').submit();
+            }
+        }
+    </script>
 
     <script>
         let button = document.querySelector(".click_button");
