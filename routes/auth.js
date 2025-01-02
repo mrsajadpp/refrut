@@ -362,12 +362,14 @@ router.get('/verify-email', async (req, res) => {
 
         logger.logInvite(reffer_user.user_name, user.user_name);  // Log the invite
 
-        reffer_user.notifyRefferer(user.user_name)  // Notify the refferer
+        reffer_user.notifyRefferer(user.user_name);  // Notify the refferer
+
+        await user.sendVerificationSuccessEmail();  // Send verification success email
 
         res.status(500).render('verify-email', {
             title: 'Signup',
             metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-            error: null, message: "Email address verifeid succesfull.", auth_page: true, req: req, form_data: req.body
+            error: null, message: "Email address verified successfully.", auth_page: true, req: req, form_data: req.body
         });
     } catch (err) {
         console.error(err);
@@ -375,7 +377,7 @@ router.get('/verify-email', async (req, res) => {
         res.status(500).render('verify-email', {
             title: 'Email Verification',
             metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
-            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.bodye
+            error: 'Server Error', message: null, auth_page: true, req: req, form_data: req.body
         });
     }
 });

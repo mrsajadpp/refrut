@@ -454,6 +454,84 @@ userSchema.methods.notifyRefferer = async function (newUserName) {
     await transporter.sendMail(mailOptions);
 };
 
+userSchema.methods.sendVerificationSuccessEmail = async function () {
+    const user = this;
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.zoho.in',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'refrut@grovixlab.com',
+            pass: process.env.APP_PASS
+        }
+    });
+
+    const mailOptions = {
+        from: 'Refrut <refrut@grovixlab.com>',
+        to: user.email,
+        subject: 'Email Verification Successful',
+        text: `Dear ${user.user_name}, your email has been successfully verified. Join our WhatsApp group: https://chat.whatsapp.com/BylItBu3PpZ4ZU5R0B5uEe and Discord server: https://discord.gg/vjr5AeVFFz.`,
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification Successful - Refrut</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #f5f5f5; padding: 20px; }
+        .content { font-size: 16px; color: #333333; line-height: 1.6; text-align: left; }
+        .content p { margin: 10px 0; }
+        .footer { text-align: center; font-size: 12px; color: #888888; padding: 20px; }
+        .footer img { margin-top: 10px; height: 30px; }
+        .cta-btn {
+            background-color: #000;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+            display: inline-block;
+        }
+            .cta-btn a {
+            text-decoration: none;
+            coor: #fff;
+            }
+        .note {
+            font-size: 14px;
+            color: #777777;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table class="container" align="center">
+        <tr>
+            <td class="content">
+                <p>Dear <strong>${user.user_name}</strong>,</p>
+                <p>Your email has been successfully verified!</p>
+                <p>Join our communities:</p>
+                <p><a href="https://chat.whatsapp.com/BylItBu3PpZ4ZU5R0B5uEe" class="cta-btn">Join WhatsApp Group</a></p>
+                <p><a href="https://discord.gg/vjr5AeVFFz" class="cta-btn">Join Discord Server</a></p>
+                <p>Thank you for being a valued member of Refrut!</p>
+                <p>Warm regards,<br>The Refrut Team</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="footer">
+                <img src="https://refrut.grovixlab.com/logo/refrut-text-logo.png" alt="Refrut Logo">
+                <p>© Refrut. by Grovix Lab. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+`
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
 // Scheduled task to check for expired accounts and send notification
 cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
     const expiredUsers = await User.find({ accountExpiryDate: { $lt: new Date() }, status: true });
