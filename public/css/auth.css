@@ -48,7 +48,7 @@ form .input_button {
     flex-direction: row;
     height: 45px;
     border: 1px solid #ccc;
-    border-radius: 90px;
+    border-radius: 80px;
     overflow: hidden;
     margin-top: 10px;
 }
