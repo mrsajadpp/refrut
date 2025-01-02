@@ -360,6 +360,8 @@ router.get('/verify-email', async (req, res) => {
         let reffer_user = await User.findOne({ _id: user.reffer_user });
         reffer_user.extendExpiryDateByOneMonth();
 
+        logger.logInvite(reffer_user.user_name, user.user_name);  // Log the invite
+
         reffer_user.notifyRefferer(user.user_name)  // Notify the refferer
 
         res.status(500).render('verify-email', {
