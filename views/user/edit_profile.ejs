@@ -1,0 +1,312 @@
+<%- include('../partials/static_header') %>
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: #555;
+            overflow: hidden;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .account-info h2 {
+            font-size: 1.2rem;
+            margin: 0;
+            color: #1a202c;
+        }
+
+        .account-info p {
+            margin: 0;
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .tab {
+            cursor: pointer;
+            font-size: 1rem;
+            color: #555;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .tab.active {
+            color: #000;
+            border-bottom: 2px solid #000;
+        }
+
+        .tab-content {
+            margin-top: 1rem;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-section input,
+        .form-section button {
+            padding: 1rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-section button {
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .prevent-select {
+            -webkit-user-select: none;
+            /* Safari */
+            -ms-user-select: none;
+            /* IE 10 and IE 11 */
+            user-select: none;
+            /* Standard syntax */
+        }
+    </style>
+    <link rel="stylesheet" href="/css/auth.css">
+    <div class="dashboard-container">
+        <div class="profile-section">
+            <div class="profile-picture">
+                <img src="<%- user.profile_url %>" alt="Profile Picture">
+            </div>
+            <div class="account-info">
+                <h2><%- user.user_name %></h2>
+                <p>Account Expiry: <%- originalExpiryDate %></p>
+            </div>
+        </div>
+
+        <div class="tabs prevent-select">
+            <div class="tab" id="referrals-tab" onclick="location.href = '/app'">Referrals</div>
+            <div class="tab" id="referrals-tab" onclick="location.href = '/#referral-link'">Referral Link</div>
+            <div class="tab active" id="referrals-tab" onclick="location.href = '/app/profile/edit'">Edit Profile</div>
+        </div>
+
+        <div class="tab-content">
+            <form action="/app/profile/update" method="post" style="margin: 0px;margin-top: -20px;">
+                <!-- <div class="label_box">
+            <span>Name</span>
+        </div> -->
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d='M15 7.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m4.5 13c-.475-9.333-14.525-9.333-15 0' />
+                        </svg>
+                    </div>
+                    <input type="text" id="user_name" placeholder="Full name" name="user_name"
+                        value="<%= form_data ? form_data.user_name : user.user_name %>">
+                </div>
+                <!-- <div class="label_box">
+            <span>Email</span>
+        </div> -->
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d='m2.357 7.714 6.98 4.654c.963.641 1.444.962 1.964 1.087.46.11.939.11 1.398 0 .52-.125 1.001-.446 1.964-1.087l6.98-4.654M7.157 19.5h9.686c1.68 0 2.52 0 3.162-.327a3 3 0 0 0 1.31-1.311c.328-.642.328-1.482.328-3.162V9.3c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311c-.642-.327-1.482-.327-3.162-.327H7.157c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.31 1.311c-.328.642-.328 1.482-.328 3.162v5.4c0 1.68 0 2.52.327 3.162a3 3 0 0 0 1.311 1.311c.642.327 1.482.327 3.162.327' />
+                        </svg>
+                    </div>
+                    <input type="email" id="email" disabled placeholder="Email" name="email"
+                        value="<%= form_data ? form_data.email : user.email %>">
+                </div>
+                <!-- <div class="label_box">
+            <span>Date of Birth</span>
+        </div> -->
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d='M9 11c1.162 3.722 4.667 4.269 6 0m-6 0c-1.053 3.373-3.462 3.74-5 1.91M15 11c.934 2.992 3.383 3.933 5 1.967' />
+                            <path
+                                d='M20 21v-8c0-1.09-.91-2-2-2H6c-1.09 0-2 .91-2 2v8m-2 0h20M7 7v4m5-4v4m5-4v4M7 4v.5m5-.5v.5m5-.5v.5' />
+                        </svg>
+                    </div>
+                    <input id="dateInput" disabled placeholder="Date of birth" name="dob"
+                        value="<%= form_data ? form_data.dob : user.dob %>">
+                </div>
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d='M6.5 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14.427 1.99c-6.61-.908-12.31 4-11.927 10.51' />
+                            <path d='M3 13.066c2.78-.385 5.275.958 6.624 3.1' />
+                            <path
+                                d='M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z' />
+                        </svg>
+                    </div>
+                    <input id="pfp" type="text" readonly placeholder="Profile Picture" name="profile_url"
+                        value="<%= form_data ? form_data.profile_url : user.profile_url %>">
+                    <input id="pfp-file" style="display: none;" type="file" placeholder="Profile Picture"
+                        name="profile_url">
+                </div>
+                <!-- <div class="label_box">
+            <span>Password</span>
+        </div> -->
+                <!-- <div class="label_box">
+            <span>Position</span>
+        </div> -->
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d='M8.308 21h7.384c3.71 0 4.375-1.45 4.569-3.213l.692-7.2c.25-2.196-.397-3.987-4.338-3.987h-9.23c-3.941 0-4.587 1.791-4.338 3.987l.692 7.2C3.933 19.55 4.598 21 8.308 21m0-14.4v-.72c0-1.593 0-2.88 2.954-2.88h1.476c2.954 0 2.954 1.287 2.954 2.88v.72' />
+                            <path
+                                d='M9.812 13.331A15.26 15.26 0 0 1 3.234 11m11 2.331A15.26 15.26 0 0 0 20.812 11M14 13.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0' />
+                        </svg>
+                    </div>
+                    <select id="position" name="position">
+                        <option disabled selected>Position</option>
+                        <option value="professional" <%=form_data && form_data.position==='developer' ? 'selected' :
+                            (user.position==='developer' ? 'selected' : '' ) %>
+                            >Developer</option>
+                        <option value="student" <%=form_data && form_data.position==='student' ? 'selected' :
+                            (user.position==='student' ? 'selected' : '' ) %>>Student
+                        </option>
+                        <option value="startup_founder" <%=form_data && form_data.position==='startup_founder'
+                            ? 'selected' : (user.position==='startup_founder' ? 'selected' : '' ) %>>Startup
+                            Founder</option>
+                        <option value="other" <%=form_data && form_data.position==='other' ? 'selected' :
+                            (user.position==='other' ? 'selected' : '' ) %>>Other</option>
+                    </select>
+                </div>
+                <!-- <div class="label_box">
+            <span>Sex</span>
+        </div> -->
+                <div class="input_box">
+                    <div class="input_icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d='M14.232 9.747a6 6 0 1 0-8.465 8.506 6 6 0 0 0 8.465-8.506m0 0L20 4m0 0h-4m4 0v4' />
+                        </svg>
+                    </div>
+                    <select id="sex" name="sex">
+                        <option disabled selected>Gender</option>
+                        <option value="male" <%=form_data && form_data.sex==='male' ? 'selected' : (user.sex==='male'
+                            ? 'selected' : '' ) %>>Male</option>
+                        <option value="female" <%=form_data && form_data.sex==='female' ? 'selected' :
+                            (user.sex==='female' ? 'selected' : '' ) %>>Female</option>
+                        <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' : (user.sex==='other'
+                            ? 'selected' : '' ) %>>Other</option>
+                    </select>
+                </div>
+
+                <div class="input_button">
+                    <button type="submit" onclick="loadButton();" class="click_button">
+                        <span class="button__text">Update</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let button = document.querySelector(".click_button");
+
+        const loadButton = () => {
+            button.classList.add('button__loading');
+        }
+    </script>
+
+<script>
+    // Handle profile picture click to open file input
+    const pfpInput = document.getElementById('pfp');
+    const pfpFileInput = document.getElementById('pfp-file');
+
+    pfpInput.addEventListener('click', function () {
+        pfpFileInput.click(); // Trigger file input click
+    });
+
+    pfpFileInput.addEventListener('change', function () {
+        const file = pfpFileInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                // Update the profile picture preview with the selected file
+                const imgElement = document.querySelector('.profile-picture img');
+                imgElement.src = e.target.result;
+                pfpInput.value = file.name; // Optionally display the file name in the text input
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the DOB input element
+        const dobInput = document.getElementById('dateInput');
+        
+        // Format the DOB when the page loads (if DOB is already available)
+        if (dobInput && dobInput.value) {
+            dobInput.value = formatDate(dobInput.value);
+        }
+
+        // Function to format the date
+        function formatDate(dateString) {
+            const date = new Date(dateString); // Convert the ISO date string to a Date object
+            const day = String(date.getDate()).padStart(2, '0'); // Get day and pad it with leading zero if needed
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Get month and pad it with leading zero
+            const year = date.getFullYear(); // Get the full year
+            return `${day}/${month}/${year}`; // Format as dd/mm/yyyy
+        }
+    });
+</script>
+
+
+    <%- include('../partials/static_footer') %>
