@@ -132,6 +132,12 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
+    .prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 </style>
 
 <div class="dashboard-container">
@@ -145,7 +151,7 @@
         </div>
     </div>
 
-    <div class="tabs">
+    <div class="tabs prevent-select">
         <div class="tab active" id="referrals-tab">Referrals</div>
         <div class="tab" id="referrals-tab" onclick="location.href = '/#referral-link'">Referral Link</div>
         <div class="tab" id="referrals-tab" onclick="location.href = '/app/profile/edit'">Edit Profile</div>
