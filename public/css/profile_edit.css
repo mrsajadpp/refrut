@@ -31,8 +31,8 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;  /* Reduced from previous value */
-    margin-bottom: 10px;
+    /* gap: 10px; */
+    /* margin-bottom: 10px; */
 }
 
 @media (min-width: 768px) {
@@ -43,6 +43,8 @@ form {
     .input_row {
         flex-direction: row;
         gap: 15px;  /* Specific gap for desktop view */
+        gap: 10px;
+        margin-bottom: 10px;
     }
     
     .input_row .input_box {
