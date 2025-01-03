@@ -10,6 +10,7 @@
     <meta name="description" content="<%- metaDescription %>" />
 
     <!-- Open Graph Meta Tags (for social media) -->
+    <meta property="og:site_name" content="Refrut" />
     <meta property="og:description" content="<%- metaDescription %>" />
     <meta property="og:title" content="<%- title %>" />
     <meta property="og:type" content="website" />
@@ -21,6 +22,13 @@
     <meta name="twitter:title" content="<%- title %>" />
     <meta name="twitter:description" content="<%- metaDescription %>" />
     <meta name="twitter:image" content="https://refrut.grovixlab.com/img/<%- (typeof ogImage !== 'undefined' && ogImage) ? ogImage : 'refrut-pre-event-banner.webp' %>" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="author" content="Refrut" />
+    <meta name="keywords" content="Refrut, Technology, Startups, Connections, Community" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="<%- req.protocol %>://<%- req.get('host') %><%- req.originalUrl %>" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
