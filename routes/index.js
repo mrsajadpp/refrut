@@ -152,6 +152,10 @@ router.get('/user/:user_id', async (req, res) => {
             }
         }
 
+        if (req.session.user && req.session.user._id === user._id.toString()) {
+            return res.redirect('/app/');
+        }
+
         let referrals = await User.find({
             reffer_user: user._id,
             status: true,
