@@ -164,7 +164,7 @@ router.get('/user/:user_id', async (req, res) => {
         const originalExpiryDate = await formatDateToDDMMYYYY(user.accountExpiryDate);
 
         res.render('index/user', {
-            title: "Refrut",
+            title: `${user.user_name} - Refrut`,
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
             error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user
         });
