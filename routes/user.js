@@ -17,6 +17,16 @@ const storage = multer.diskStorage({
     }
 });
 
+function formatDateToDDMMYYYY(dateString) {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
 const upload = multer({ storage: storage });
 
 router.get('/', async (req, res) => {
@@ -28,19 +38,22 @@ router.get('/', async (req, res) => {
             email_verified: true,
             accountExpiryDate: { $gt: new Date() } // Check if account is not expired
         });
-        const originalExpiryDate = moment(user.accountExpiryDate).format('DD/MM/YYYY');
-        const updatedExpiryDate = moment(user.accountExpiryDate).add(1, 'month').format('DD/MM/YYYY');
+
+        let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
+
+        const originalExpiryDate = await formatDateToDDMMYYYY(user.accountExpiryDate);
+
         res.render('user/app', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-            error: null, message: null, auth_page: true, req: req, originalExpiryDate, updatedExpiryDate, user, referrals
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user
         });
     } catch (error) {
         logger.logError(error);
         res.render('user/app', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, updatedExpiryDate: null, user: null, referrals: null
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
         });
     }
 });
@@ -113,7 +126,7 @@ router.post('/profile/update', upload.single('profile_picture'), async (req, res
         if (req.file) {
             user.profile_url = `/pfp/${req.session.user._id}.jpg`;
         }
- 
+
         await user.save();
 
         res.render('user/edit_profile', {

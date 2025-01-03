@@ -48,6 +48,16 @@ async function fetchMediumStories() {
     }
 }
 
+function formatDateToDDMMYYYY(dateString) {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
 
 router.get('/', checkLoggedIn, async (req, res) => {
     try {
@@ -122,6 +132,35 @@ router.get('/partners', async (req, res) => {
             title: "Partners",
             metaDescription: 'Explore our valued partners at Refrut who contribute to our mission of innovation and growth. From technology to marketing, we collaborate with industry leaders to bring cutting-edge solutions and services to our community.',
             error: 'Server error', message: null, auth_page: true, req: req, ogImage: 'partners.webp'
+        });
+    }
+});
+
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) }).lean();
+        let referrals = await User.find({
+            reffer_user: user._id,
+            status: true,
+            email_verified: true,
+            accountExpiryDate: { $gt: new Date() } // Check if account is not expired
+        });
+
+        let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
+
+        const originalExpiryDate = await formatDateToDDMMYYYY(user.accountExpiryDate);
+
+        res.render('index/user', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.render('index/user', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
         });
     }
 });
