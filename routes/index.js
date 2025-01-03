@@ -141,11 +141,15 @@ router.get('/user/:user_id', async (req, res) => {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) }).lean();
 
         if (!user) {
-            return res.status(404).render('index/index', {
-                title: "Refrut",
-                metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-                error: 'User not found', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
-            });
+            if (req.session.user) {
+                return res.redirect('/app/');
+            } else {
+                return res.status(404).render('index/index', {
+                    title: "Refrut",
+                    metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+                    error: 'User not found', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
+                });
+            }
         }
 
         let referrals = await User.find({
