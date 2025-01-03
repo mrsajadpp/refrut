@@ -139,6 +139,15 @@ router.get('/partners', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) }).lean();
+
+        if (!user) {
+            return res.status(404).render('index/index', {
+                title: "Refrut",
+                metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+                error: 'User not found', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
+            });
+        }
+
         let referrals = await User.find({
             reffer_user: user._id,
             status: true,
@@ -240,6 +249,46 @@ router.get('/sitemap.xml', (req, res) => {
         res.send(sitemap);
     } catch (error) {
         console.error(error);
+        logger.logError(error);
+        res.status(500).send('Server error');
+    }
+});
+
+router.get('/sitemap-users.xml', async (req, res) => {
+    try {
+        // Fetch users with verified email and active status
+        let users = await User.find({ email_verified: true, status: true }).lean();
+
+        const currentDate = new Date().toISOString();
+
+        // Initialize sitemap XML structure
+        let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+        <urlset
+            xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\n`;
+
+        // Add a URL entry for each user
+        users.forEach(user => {
+            sitemap += `
+            <url>
+                <loc>https://refrut.grovixlab.com/user/${user._id}</loc>
+                <lastmod>${currentDate}</lastmod>
+                <changefreq>daily</changefreq>
+                <priority>1.0</priority>
+            </url>`;
+        });
+
+        // Close the sitemap XML structure
+        sitemap += '\n</urlset>';
+
+        // Set response header to XML
+        res.header('Content-Type', 'application/xml');
+        res.send(sitemap);
+    } catch (error) {
+        console.error(error);
+        // Log the error using your logger
         logger.logError(error);
         res.status(500).send('Server error');
     }
