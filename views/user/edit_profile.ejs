@@ -217,6 +217,35 @@
                     </div>
                     <input type="file" id="file-input" name="profile_picture" class="hidden-input"
                         onchange="submitForm()">
+                        <input type="text" id="user_name" placeholder="Full name" class="hidden-input" name="user_name"
+                                value="<%= form_data ? form_data.user_name : user.user_name %>">
+                            <input type="email" id="email" disabled placeholder="Email" class="hidden-input" name="email"
+                                value="<%= form_data ? form_data.email : user.email %>">
+                            <input id="dateInput" disabled placeholder="Date of birth" class="hidden-input" name="dob"
+                                value="<%= form_data ? form_data.dob : user.dob %>">
+                            <select id="position" class="hidden-input" name="position">
+                                <option disabled selected>Position</option>
+                                <option value="developer" <%=form_data && form_data.position==='developer' ? 'selected' :
+                                    (user.position==='developer' ? 'selected' : '' ) %>
+                                    >Developer</option>
+                                <option value="student" <%=form_data && form_data.position==='student' ? 'selected' :
+                                    (user.position==='student' ? 'selected' : '' ) %>>Student
+                                </option>
+                                <option value="startup_founder" <%=form_data && form_data.position==='startup_founder'
+                                    ? 'selected' : (user.position==='startup_founder' ? 'selected' : '' ) %>>Startup
+                                    Founder</option>
+                                <option value="other" <%=form_data && form_data.position==='other' ? 'selected' :
+                                    (user.position==='other' ? 'selected' : '' ) %>>Other</option>
+                            </select>
+                            <select id="sex" class="hidden-input" name="sex">
+                                <option disabled selected>Gender</option>
+                                <option value="male" <%=form_data && form_data.sex==='male' ? 'selected' :
+                                    (user.sex==='male' ? 'selected' : '' ) %>>Male</option>
+                                <option value="female" <%=form_data && form_data.sex==='female' ? 'selected' :
+                                    (user.sex==='female' ? 'selected' : '' ) %>>Female</option>
+                                <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' :
+                                    (user.sex==='other' ? 'selected' : '' ) %>>Other</option>
+                            </select>
                 </div>
             </form>
 
@@ -235,9 +264,6 @@
         <div class="tab-content">
             <form action="/app/profile/update" class="form" method="post" enctype="multipart/form-data"
                 style="margin: 0px;margin-top: -20px;">
-                <!-- <div class="label_box">
-            <span>Name</span>
-        </div> -->
                 <div class="input_row">
                     <div class="input_box">
                         <div class="input_icon">
@@ -266,9 +292,6 @@
                             value="<%= form_data ? form_data.email : user.email %>">
                     </div>
                 </div>
-                <!-- <div class="label_box">
-            <span>Date of Birth</span>
-        </div> -->
                 <div class="input_row">
                     <div class="input_box">
                         <div class="input_icon">
@@ -332,9 +355,6 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="label_box">
-            <span>Sex</span>
-        </div> -->
                 <div class="input_row">
                     <div class="input_box">
                         <div class="input_icon">
