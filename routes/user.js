@@ -46,14 +46,14 @@ router.get('/', async (req, res) => {
         res.render('user/app', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-            error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user, form_data: null
         });
     } catch (error) {
         logger.logError(error);
         res.render('user/app', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
-            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null, form_data: null
         });
     }
 });
