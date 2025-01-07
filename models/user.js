@@ -70,6 +70,11 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpires: {
         type: Date
     },
+    email_subscribed: {
+        type: Boolean,
+        required: true,
+        default: true
+    }
 });
 
 userSchema.pre('save', async function (next) {
