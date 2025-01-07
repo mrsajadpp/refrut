@@ -144,6 +144,60 @@ router.post('/profile/update', upload.single('profile_picture'), async (req, res
     }
 });
 
+router.get('/:user_id/email/unsubscribe', async (req, res) => {
+    try {
+        if(req.params.user_id !== req.session.user._id) {
+            res.status(500).render('verify-email', {
+                title: 'Unsubscribe',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+                error: "You don't have acces to do this.", message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
+        user.email_subscribed = false;
+        await user.save();
+        res.status(500).render('verify-email', {
+            title: 'Unsubscribe',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: null, message: "Unsubscribed from our email brodcast.", auth_page: true, req: req, form_data: req.body
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.status(500).render('verify-email', {
+            title: 'Unsubscribe',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: "Server Error", message: null, auth_page: true, req: req, form_data: req.body
+        });
+    }
+});
+
+router.get('/:user_id/email/subscribe', async (req, res) => {
+    try {
+        if(req.params.user_id !== req.session.user._id) {
+            res.status(500).render('verify-email', {
+                title: 'Subscribe',
+                metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+                error: "You don't have acces to do this.", message: null, auth_page: true, req: req, form_data: req.body
+            });
+        }
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
+        user.email_subscribed = true;
+        await user.save();
+        res.status(500).render('verify-email', {
+            title: 'Subscribe',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: null, message: "Subscribed from our email brodcast.", auth_page: true, req: req, form_data: req.body
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.status(500).render('verify-email', {
+            title: 'Subscribe',
+            metaDescription: 'Sign up for Refrut and join a vibrant community of startups and tech innovators. Unlock opportunities to collaborate, learn, and expand your professional network.',
+            error: "Server Error", message: null, auth_page: true, req: req, form_data: req.body
+        });
+    }
+});
+
 router.get('/logout', (req, res) => {
     req.session = null;
     res.redirect('/auth/login');
