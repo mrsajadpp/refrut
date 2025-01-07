@@ -166,7 +166,7 @@
             object-fit: cover;
         }
 
-        .profile-picture:hover::before {
+        /* .profile-picture:hover::before {
             content: "";
             position: absolute;
             top: 0;
@@ -174,7 +174,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
-        }
+        } */
 
         .profile-picture:hover .pencil-icon {
             display: flex;
@@ -205,52 +205,9 @@
 
     <div class="dashboard-container">
         <div class="profile-section">
-            <form id="profile-form" action="/app/profile/update" method="POST" enctype="multipart/form-data">
-                <div class="profile-picture" onclick="triggerFileInput()">
-                    <img src="<%- user.profile_url %>" alt="Profile">
-                    <div class="pencil-icon">
-                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
-                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d='M6 9a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14.927-.01c-6.61-.908-11.31 4-10.927 10.51' />
-                            <path d='M3 13.066c2.78-.385 5.851 1.293 7.2 3.434' />
-                            <path
-                                d='M2.357 9.3c0-1.68 0-2.52.327-3.162a3 3 0 0 1 1.311-1.311C4.637 4.5 5.477 4.5 7.157 4.5h9.686c1.68 0 2.52 0 3.162.327a3 3 0 0 1 1.31 1.311c.328.642.328 1.482.328 3.162v5.4c0 1.68 0 2.52-.327 3.162a3 3 0 0 1-1.311 1.311c-.642.327-1.482.327-3.162.327H7.157c-1.68 0-2.52 0-3.162-.327a3 3 0 0 1-1.31-1.311c-.328-.642-.328-1.482-.328-3.162z' />
-                        </svg>
-                    </div>
-                    <input type="file" id="file-input" name="profile_picture" class="hidden-input"
-                        onchange="submitForm()">
-                        <input type="text" id="user_name" placeholder="Full name" class="hidden-input" name="user_name"
-                        value="<%= form_data ? form_data.user_name : user.user_name %>">
-                    <input type="email" id="email" disabled placeholder="Email" class="hidden-input" name="email"
-                        value="<%= form_data ? form_data.email : user.email %>">
-                    <input id="dateInput" disabled placeholder="Date of birth" class="hidden-input" name="dob"
-                        value="<%= form_data ? form_data.dob : user.dob %>">
-                    <select id="position" class="hidden-input" name="position">
-                        <option disabled selected>Position</option>
-                        <option value="developer" <%=form_data && form_data.position==='developer' ? 'selected' :
-                            (user.position==='developer' ? 'selected' : '' ) %>
-                            >Developer</option>
-                        <option value="student" <%=form_data && form_data.position==='student' ? 'selected' :
-                            (user.position==='student' ? 'selected' : '' ) %>>Student
-                        </option>
-                        <option value="startup_founder" <%=form_data && form_data.position==='startup_founder'
-                            ? 'selected' : (user.position==='startup_founder' ? 'selected' : '' ) %>>Startup
-                            Founder</option>
-                        <option value="other" <%=form_data && form_data.position==='other' ? 'selected' :
-                            (user.position==='other' ? 'selected' : '' ) %>>Other</option>
-                    </select>
-                    <select id="sex" class="hidden-input" name="sex">
-                        <option disabled selected>Gender</option>
-                        <option value="male" <%=form_data && form_data.sex==='male' ? 'selected' :
-                            (user.sex==='male' ? 'selected' : '' ) %>>Male</option>
-                        <option value="female" <%=form_data && form_data.sex==='female' ? 'selected' :
-                            (user.sex==='female' ? 'selected' : '' ) %>>Female</option>
-                        <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' :
-                            (user.sex==='other' ? 'selected' : '' ) %>>Other</option>
-                    </select>
-                </div>
-            </form>
+            <div class="profile-picture" onclick="location.href = '/app/profile/edit'">
+                <img src="<%- user.profile_url %>" alt="Profile">
+            </div>
 
             <div class="account-info">
                 <h2><%- user.user_name %></h2>
