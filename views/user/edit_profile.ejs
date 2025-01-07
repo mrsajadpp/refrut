@@ -307,27 +307,6 @@
                         <input id="dateInput" disabled placeholder="Date of birth" name="dob"
                             value="<%= form_data ? form_data.dob : user.dob %>">
                     </div>
-                    <!-- <div class="input_box">
-                    <div class="input_icon">
-                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
-                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d='M6.5 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14.427 1.99c-6.61-.908-12.31 4-11.927 10.51' />
-                            <path d='M3 13.066c2.78-.385 5.275.958 6.624 3.1' />
-                            <path
-                                d='M3 9.4c0-2.24 0-3.36.436-4.216a4 4 0 0 1 1.748-1.748C6.04 3 7.16 3 9.4 3h5.2c2.24 0 3.36 0 4.216.436a4 4 0 0 1 1.748 1.748C21 6.04 21 7.16 21 9.4v5.2c0 2.24 0 3.36-.436 4.216a4 4 0 0 1-1.748 1.748C17.96 21 16.84 21 14.6 21H9.4c-2.24 0-3.36 0-4.216-.436a4 4 0 0 1-1.748-1.748C3 17.96 3 16.84 3 14.6z' />
-                        </svg>
-                    </div>
-                    <input id="pfp" type="text" readonly placeholder="Profile Picture" name="profile_url"
-                        value="<%= form_data ? form_data.profile_url : user.profile_url %>">
-                    <input id="pfp-file" style="display: none;" type="file" placeholder="Profile Picture" name="profile_picture">
-                </div> -->
-                    <!-- <div class="label_box">
-            <span>Password</span>
-        </div> -->
-                    <!-- <div class="label_box">
-            <span>Position</span>
-        </div> -->
                     <div class="input_box">
                         <div class="input_icon">
                             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -374,6 +353,12 @@
                             <option value="other" <%=form_data && form_data.sex==='other' ? 'selected' :
                                 (user.sex==='other' ? 'selected' : '' ) %>>Other</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_box bio_box">
+                        <textarea name="bio" id="bio"><%= form_data ? form_data.bio : user.bio %></textarea>
                     </div>
                 </div>
 
