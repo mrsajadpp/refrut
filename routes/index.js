@@ -169,7 +169,7 @@ router.get('/user/:user_id', async (req, res) => {
 
         res.render('index/user', {
             title: `${user.user_name} - Refrut`,
-            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            metaDescription: user.bio ? user.bio : "Passionate about innovation, collaboration, and growth, I'm a proud member of the Refrut community.",
             error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, referrals, reffer_user, ogImage: `https://refrut.grovixlab.com${user.profile_url}`
         });
     } catch (error) {
