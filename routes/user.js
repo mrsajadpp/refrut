@@ -118,6 +118,14 @@ router.post('/profile/update', upload.single('profile_picture'), async (req, res
             });
         }
 
+        if (bio && bio.length > 150) {
+            return res.status(400).render('user/edit_profile', {
+                title: "Refrut",
+                metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+                error: 'Bio must be 150 characters or less', message: null, auth_page: true, req: req, originalExpiryDate, user, form_data: null
+            });
+        }
+
         // Update user
         user.user_name = user_name || user.user_name;
         user.position = position || user.position;
