@@ -78,7 +78,7 @@ router.get('/profile/edit', async (req, res) => {
 });
 
 router.post('/profile/update', upload.single('profile_picture'), async (req, res) => {
-    const { user_name, position, sex } = req.body;
+    const { user_name, position, sex, bio } = req.body;
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
         const originalExpiryDate = moment(user.accountExpiryDate).format('DD/MM/YYYY');
@@ -122,6 +122,7 @@ router.post('/profile/update', upload.single('profile_picture'), async (req, res
         user.user_name = user_name || user.user_name;
         user.position = position || user.position;
         user.sex = sex || user.sex;
+        user.bio = bio ? bio : "Passionate about innovation, collaboration, and growth, I'm a proud member of the Refrut community.";
 
         if (req.file) {
             user.profile_url = `/pfp/${req.session.user._id}.jpg`;
