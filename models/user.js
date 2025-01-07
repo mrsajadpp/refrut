@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    bio: {
+        type: String,
+        default: "Passionate about innovation, collaboration, and growth, I'm a proud member of the Refrut community."
+    },
     position: {
         type: String,
         required: true
