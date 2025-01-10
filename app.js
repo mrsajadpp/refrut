@@ -65,12 +65,12 @@ function checkLoggedIn(req, res, next) {
 }
 
 function checkAdminLoggedIn(req, res, next) {
-    if (!req.session.user) {
-        if (!req.session.user.admin) {
-            return res.redirect('/app/');
+    if (req.session.user) {
+        if (req.session.user.admin) {
+            return next();
         }
     }
-    return next();
+    return res.redirect('/app/');
 }
 
 // Middleware to check if user is not logged in
