@@ -1,0 +1,72 @@
+<div class="admin-container">
+    <div class="admin-header">
+      <h1>Admin Panel</h1>
+    </div>
+    <div class="admin-buttons">
+      <a href="/admin/badges" class="admin-btn">Badges</a>
+      <a href="/admin/users" class="admin-btn">User</a>
+    </div>
+  </div>
+  
+  <style>
+    /* General Container Styling */
+    .admin-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    /* Header Styling */
+    .admin-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    .admin-header h1 {
+      font-size: 24px;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+  
+    /* Buttons Container */
+    .admin-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+  
+    /* Link Button Styling */
+    .admin-btn {
+      display: inline-block;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-decoration: none;
+      background-color: #0078e8; /* Primary Button Color */
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+  
+    .admin-btn:hover {
+      background-color: #005bb5; /* Hover State Color */
+      transform: translateY(-3px); /* Hover Effect */
+    }
+  
+    .admin-btn:active {
+      transform: translateY(1px); /* Active State Effect */
+    }
+  
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .admin-btn {
+        width: 100%; /* Full-width buttons on smaller screens */
+      }
+    }
+  </style>
+  

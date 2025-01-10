@@ -5,6 +5,11 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const cron = require('node-cron');
 
+const badgeSchema = new mongoose.Schema({
+    badge_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Badge', required: true },
+    claimed_at: { type: Date, required: true }
+});
+
 const userSchema = new mongoose.Schema({
     user_name: {
         type: String,
@@ -66,6 +71,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     },
+    badges: { type: [badgeSchema], default: [] },
     verificationCode: {
         type: String
     },

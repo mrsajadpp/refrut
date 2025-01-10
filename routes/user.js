@@ -58,6 +58,32 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/badges', async (req, res) => {
+    try {
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
+        let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
+
+        const badge = await User.findById(user._id, 'badges').populate('badges.badge_id').exec();
+
+        console.log(badge);
+
+        const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
+
+        res.render('user/badges', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, badges: badge.badges, referrals: null, user, reffer_user, form_data: null
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.render('user/app', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null, form_data: null
+        });
+    }
+});
+
 router.get('/profile/edit', async (req, res) => {
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });

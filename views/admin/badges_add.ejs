@@ -1,0 +1,110 @@
+<style>
+    /* General Container Styling */
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Header Styling */
+    .form-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-header h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Form Styling */
+    .badge-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .badge-form label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .badge-form input,
+    .badge-form textarea {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .badge-form textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .badge-form input[type="file"] {
+        padding: 5px;
+    }
+
+    .submit-btn {
+        padding: 12px 20px;
+        font-size: 18px;
+        background-color: #0078e8;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #005bb5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+
+        .badge-form label,
+        .badge-form input,
+        .badge-form textarea {
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+    }
+</style>
+<div class="form-container">
+    <div class="form-header">
+        <h1>Add New Badge</h1>
+    </div>
+
+    <form class="badge-form" action="/admin/badge/add" method="POST" enctype="multipart/form-data">
+        <!-- Badge Name -->
+        <label for="badgeName">Badge Name</label>
+        <input type="text" id="badgeName" name="badge_name" required placeholder="Enter badge name">
+
+        <!-- Description -->
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required placeholder="Enter badge description"></textarea>
+
+        <!-- Badge Image Upload -->
+        <label for="badgeImage">Badge Image</label>
+        <input type="file" id="badgeImage" name="badge_image" accept="image/*" required>
+
+        <!-- Badge Points -->
+        <label for="badgePoints">Badge Points</label>
+        <input type="number" id="badgePoints" name="badge_points" required placeholder="Enter badge points" min="1">
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Add Badge</button>
+    </form>
+</div>

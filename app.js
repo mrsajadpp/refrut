@@ -64,6 +64,15 @@ function checkLoggedIn(req, res, next) {
     return res.redirect('/app/');
 }
 
+function checkAdminLoggedIn(req, res, next) {
+    if (!req.session.user) {
+        if (!req.session.user.admin) {
+            return res.redirect('/app/');
+        }
+    }
+    return next();
+}
+
 // Middleware to check if user is not logged in
 function checkNotLoggedIn(req, res, next) {
     if (req.session.user) {
@@ -78,11 +87,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
+const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/auth');
 
 app.use('/', indexRouter);
 app.use('/auth', checkLoggedIn, authRouter);
 app.use('/app', checkNotLoggedIn, userRouter);
+app.use('/admin', checkAdminLoggedIn, adminRouter);
 
 app.use((req, res) => {
     res.status(404).render('notfound', {

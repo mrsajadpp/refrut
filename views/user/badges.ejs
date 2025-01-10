@@ -245,24 +245,24 @@
         </div>   
 
         <div class="tabs prevent-select">
-            <div class="tab active" id="referrals-tab" onclick="location.href = '/app/'">Referrals</div>
-            <div class="tab" id="referrals-tab" onclick="location.href = '/app/badges/'">Badges</div>
+            <div class="tab" id="referrals-tab" onclick="location.href = '/app/'">Referrals</div>
+            <div class="tab active" id="referrals-tab" onclick="location.href = '/app/badges/'">Badges</div>
             <div class="tab" id="referrals-tab" onclick="location.href = '/app/#referral-link'">Referral Link</div>
             <div class="tab" id="referrals-tab" onclick="location.href = '/app/profile/edit'">Edit Profile</div>
         </div>
 
         <div class="tab-content" id="referrals-content">
             <div class="referral-section">
-                <% if (referrals.length === 0) { %>
+                <% if (badges.length === 0) { %>
                     <div class="no-referrals-container">
-                        <p style="color: #4a5568;">You don't have any referrals yet!</p>
+                        <p style="color: #4a5568;">You don't have any badges yet!</p>
                     </div>
                 <% } else { %>
                     <div class="grid">
-                        <% referrals.forEach(referral => { %>
-                            <div class="grid-item prevent-select" onclick="location.href = '/user/<%- referral._id %>'">
-                                <img src="<%- referral.profile_url %>" alt="Profile">
-                                <p><%- referral.user_name %></p>
+                        <% badges.forEach(badge => { %>
+                            <div class="grid-item prevent-select" onclick="location.href = '/badge/<%- badge._id %>'">
+                                <img src="<%- badge.iconUrl %>" alt="Profile">
+                                <p><%- badge.name %></p>
                             </div>
                         <% }) %>
                     </div>
