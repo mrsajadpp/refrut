@@ -283,4 +283,22 @@ router.post('/badge/edit/:badge_id', upload.single('badge_image'), async (req, r
     }
 });
 
+router.get('/badge/:badge_id/delete/', async (req, res) => {
+    try {
+        let badge = await Badge.deleteOne({ _id: new mongoose.Types.ObjectId(req.params.badge_id) });
+        const result = await User.updateMany(
+            { 'badges.badge_id': badge._id },
+            { $pull: { badges: { badge_id: badge._id } } }
+        );
+        res.redirect('/admin/badges');
+    } catch (error) {
+        logger.logError(error);
+        res.render('admin/badges_edit', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, badge: null
+        });
+    }
+});
+
 module.exports = router;
