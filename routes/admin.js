@@ -301,4 +301,22 @@ router.get('/badge/:badge_id/delete/', async (req, res) => {
     }
 });
 
+router.get('/users/', async (req, res) => {
+    try {
+        let users = await User.find({ status: true, email_verified: true }).sort({ createdAt: -1 });
+        res.render('admin/users', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: null, message: null, auth_page: true, req: req, users
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.render('admin/users', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, badge: null
+        });
+    }
+});
+
 module.exports = router;

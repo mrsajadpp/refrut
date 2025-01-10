@@ -1,0 +1,124 @@
+<style>
+    /* General Container Styling */
+    .user-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    /* Header Styling */
+    .user-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .user-header h1 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    /* Search Bar Styling */
+    .search-bar {
+        padding: 8px 16px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 300px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-top: 10px;
+        transition: border 0.3s ease;
+    }
+
+    .search-bar:focus {
+        outline: none;
+        border-color: #0078e8;
+    }
+
+    /* User List Styling */
+    .user-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .user-item {
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-item h3 {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .user-item p {
+        font-size: 14px;
+        color: #777;
+    }
+
+    /* No Users Message */
+    .no-users {
+        text-align: center;
+        font-size: 18px;
+        color: #777;
+        margin-top: 30px;
+    }
+</style>
+
+<div class="user-container">
+    <!-- Header with Search Bar -->
+    <div class="user-header">
+        <h1>Users</h1>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search users..." />
+    </div>
+
+    <!-- User List -->
+    <% if (users.length > 0) { %>
+        <div class="user-list" id="userList">
+            <% users.forEach(user => { %>
+                <div class="user-item">
+                    <h3><%= user.name %></h3>
+                    <p>Email: <%= user.email %></p>
+                    <p>Name: <%= user.user_name %></p>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="no-users">
+            <p>No users available.</p>
+        </div>
+    <% } %>
+</div>
+
+<script>
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    const userList = document.getElementById('userList');
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        // Filter users based on search term
+        const users = document.querySelectorAll('.user-item');
+        users.forEach(user => {
+            const userName = user.querySelector('h3').textContent.toLowerCase();
+            const userEmail = user.querySelector('p').textContent.toLowerCase();
+            if (userName.includes(searchTerm) || userEmail.includes(searchTerm)) {
+                user.style.display = '';
+            } else {
+                user.style.display = 'none';
+            }
+        });
+    });
+</script>
