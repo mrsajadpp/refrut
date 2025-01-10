@@ -234,18 +234,6 @@ router.post('/badge/edit/:badge_id', upload.single('badge_image'), async (req, r
             });
         }
 
-        if (!req.file) {
-            return res.status(400).render('admin/badges_edit', {
-                title: "Refrut",
-                metaDescription: 'Add a new badge to the system.',
-                error: 'Badge icon is required.',
-                message: null,
-                auth_page: true,
-                req: req,
-                badge
-            });
-        }
-
 
         // Ensure badge_point is a number
         if (isNaN(badge_points)) {
@@ -261,10 +249,10 @@ router.post('/badge/edit/:badge_id', upload.single('badge_image'), async (req, r
         }
 
 
-        badge.name = badge_name
-        badge.description = description
-        badge.badge_points = parseInt(badge_points)
-        badge.badge_icon = `/badge_icon/${req.file.originalname}.jpeg`
+        badge.name = badge_name;
+        badge.description = description;
+        badge.badge_points = parseInt(badge_points);
+        badge.badge_icon = req.file ? `/badge_icon/${req.file.originalname}.jpeg` : badge.badge_icon;
 
         await badge.save();
 
