@@ -182,6 +182,30 @@ router.get('/user/:user_id', async (req, res) => {
     }
 });
 
+router.get('/user/:user_id/badges', async (req, res) => {
+    try {
+        let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.params.user_id) }).lean();
+        let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
+
+        const badge = await User.findById(user._id, 'badges').populate('badges.badge_id').exec();
+
+        const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
+
+        res.render('index/badges', {
+            title: `${user.user_name}/Badges - Refrut`,
+            metaDescription: user.bio ? user.bio : "Passionate about innovation, collaboration, and growth, I'm a proud member of the Refrut community.",
+            error: null, message: null, auth_page: true, req: req, originalExpiryDate, user, reffer_user, ogImage: `https://refrut.grovixlab.com${user.profile_url}`,badges: badge.badges
+        });
+    } catch (error) {
+        logger.logError(error);
+        res.render('user/app', {
+            title: "Refrut",
+            metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',
+            error: 'Server Error', message: null, auth_page: true, req: req, originalExpiryDate: null, user: null, referrals: null, reffer_user: null, form_data: null
+        });
+    }
+});
+
 router.get('/terms-and-conditions', async (req, res) => {
     try {
         res.render('index/terms_and_conditions', {

@@ -196,6 +196,7 @@
 
         <div class="tabs prevent-select">
             <div class="tab active" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>'">Referrals</div>
+            <div class="tab" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>/badges/'">Badges</div>
             <div class="tab" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>#referral-link'">Referral Link</div>
         </div>
 
@@ -243,5 +244,15 @@
             });
         });
     </script>
+    <script>
+        // Function to scroll the active tab into view
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeTab = document.querySelector('.tab.active'); // Get the tab with 'active' class
+            if (activeTab) {
+                activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Scroll into view smoothly
+            }
+        });
+    </script>
+    
 
     <%- include('../partials/static_footer') %>

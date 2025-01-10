@@ -437,5 +437,16 @@
         });
     </script>
 
+<script>
+    // Function to scroll the active tab into view
+    window.addEventListener('DOMContentLoaded', () => {
+        const activeTab = document.querySelector('.tab.active'); // Get the tab with 'active' class
+        if (activeTab) {
+            activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Scroll into view smoothly
+        }
+    });
+</script>
+
+
 
     <%- include('../partials/static_footer') %>

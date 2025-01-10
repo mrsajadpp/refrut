@@ -58,14 +58,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/badges', async (req, res) => {
+router.get('/badges', async (req, res) => { 
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
         let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
 
         const badge = await User.findById(user._id, 'badges').populate('badges.badge_id').exec();
-
-        console.log(badge);
 
         const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
 

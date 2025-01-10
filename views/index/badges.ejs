@@ -245,10 +245,10 @@
         </div>   
 
         <div class="tabs prevent-select">
-            <div class="tab" id="referrals-tab" onclick="location.href = '/app/'">Referrals</div>
-            <div class="tab active" id="referrals-tab" onclick="location.href = '/app/badges/'">Badges</div>
-            <div class="tab" id="referrals-tab" onclick="location.href = '/app/#referral-link'">Referral Link</div>
-            <div class="tab" id="referrals-tab" onclick="location.href = '/app/profile/edit'">Edit Profile</div>
+
+            <div class="tab" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>'">Referrals</div>
+            <div class="tab active" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>/badges/'">Badges</div>
+            <div class="tab" id="referrals-tab" onclick="location.href = '/user/<%- user._id %>#referral-link'">Referral Link</div>
         </div>
 
         <div class="tab-content" id="referrals-content">
@@ -269,7 +269,7 @@
                 <% } %>
 
                 <br><br>
-                <h3 style="font-size: 16px;" id="referral-link">Your Referral Link</h3>
+                <h3 style="font-size: 16px;" id="referral-link"><%- user.user_name %>'s Referral Link</h3>
                 <div class="referral-link">
                     <input type="text" id="myInput"
                         value="https://refrut.grovixlab.com/auth/signup?reff_code=<%- user.reff_code %>" readonly>
@@ -314,6 +314,17 @@
             }
         });
     </script>
+
+<script>
+    // Function to scroll the active tab into view
+    window.addEventListener('DOMContentLoaded', () => {
+        const activeTab = document.querySelector('.tab.active'); // Get the tab with 'active' class
+        if (activeTab) {
+            activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Scroll into view smoothly
+        }
+    });
+</script>
+
     
 
     <%- include('../partials/static_footer') %>
