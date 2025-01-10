@@ -41,7 +41,7 @@ router.get('/', async (req, res) => {
 
         let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
 
-        const originalExpiryDate = await formatDateToDDMMYYYY(user.accountExpiryDate);
+        const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
 
         res.render('user/app', {
             title: "Refrut",
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
 router.get('/profile/edit', async (req, res) => {
     try {
         let user = await User.findOne({ _id: new mongoose.Types.ObjectId(req.session.user._id) });
-        const originalExpiryDate = moment(user.accountExpiryDate).format('DD/MM/YYYY');
+        const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
         res.render('user/edit_profile', {
             title: "Refrut",
             metaDescription: 'Welcome to Refrut, a dynamic community for startups, tech enthusiasts, and innovators. Discover resources, connect with like-minded professionals, and unlock new opportunities to grow.',

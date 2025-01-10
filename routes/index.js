@@ -165,7 +165,7 @@ router.get('/user/:user_id', async (req, res) => {
 
         let reffer_user = await User.findOne({ _id: new mongoose.Types.ObjectId(user.reffer_user) }).lean();
 
-        const originalExpiryDate = await formatDateToDDMMYYYY(user.accountExpiryDate);
+        const originalExpiryDate = await user.admin ? "9999+": formatDateToDDMMYYYY(user.accountExpiryDate);
 
         res.render('index/user', {
             title: `${user.user_name} - Refrut`,

@@ -547,7 +547,7 @@ userSchema.methods.sendVerificationSuccessEmail = async function () {
 
 // Scheduled task to check for expired accounts and send notification
 cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
-    const expiredUsers = await User.find({ accountExpiryDate: { $lt: new Date() }, status: true });
+    const expiredUsers = await User.find({ accountExpiryDate: { $lt: new Date() }, status: true, admin: false });
     for (const user of expiredUsers) {
         user.status = false;
         await user.save();
@@ -558,7 +558,7 @@ cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
 // Scheduled task to check for accounts expiring in 3 days and send notification
 cron.schedule('0 0 * * *', async () => { // Runs every day at midnight
     const threeDaysFromNow = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
-    const usersExpiringSoon = await User.find({ accountExpiryDate: { $lt: threeDaysFromNow, $gt: new Date() }, status: true });
+    const usersExpiringSoon = await User.find({ accountExpiryDate: { $lt: threeDaysFromNow, $gt: new Date() }, status: true, admin: false });
     for (const user of usersExpiringSoon) {
         await user.sendPreExpiryNotificationEmail();
     }
