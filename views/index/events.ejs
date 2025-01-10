@@ -104,11 +104,6 @@
                 <p class="event-description">
                     <%= event.description.replace(/<[^>]*>?/gm, '').substring(0, 150) %>...
                 </p>
-                <div class="event-meta">
-                    <% if (event.location) { %>
-                        <p><strong>Location:</strong> <%= event.location %></p>
-                    <% } %>
-                </div>
             </div>
             <a href="<%= event.url %>" class="register-button">Register Now</a>
         </div>
