@@ -76,7 +76,7 @@ router.get('/login', (req, res) => {
 
 // Signup route
 router.post('/signup', async (req, res) => {
-    const { user_name, email, dob, password, position, sex, reff_code } = req.body;
+    let { user_name, email, dob, password, position, sex, reff_code } = req.body;
     const profileUrls = [
         '/pfp/profile1.jpg',
         '/pfp/profile2.jpg',
@@ -116,6 +116,8 @@ router.post('/signup', async (req, res) => {
                 error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'signup.webp'
             });
         }
+
+        email = email.toLowerCase();
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -240,7 +242,7 @@ router.post('/signup', async (req, res) => {
 
 // Login route
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
     try {
         // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -251,6 +253,8 @@ router.post('/login', async (req, res) => {
                 error: 'Invalid Email', message: null, auth_page: true, req: req, form_data: req.body, ogImage: 'login.webp'
             });
         }
+
+        email = email.toLowerCase();
 
         // Validate password
         if (!password) {

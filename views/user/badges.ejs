@@ -261,7 +261,7 @@
                     <div class="grid">
                         <% badges.forEach(badge => { %>
                             <div class="grid-item prevent-select" onclick="location.href = '/badge/<%- badge._id %>'">
-                                <img src="<%- badge.iconUrl %>" alt="Profile">
+                                <img src="<%- badge.badge_icon %>" alt="Profile">
                                 <p><%- badge.name %></p>
                             </div>
                         <% }) %>
