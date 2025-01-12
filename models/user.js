@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 const badgeSchema = new mongoose.Schema({
     badge_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Badge', required: true },
-    claimed_at: { type: Date, required: true }
+    claimed_at: { type: Date, required: true, default: Date.now }
 });
 
 const userSchema = new mongoose.Schema({
