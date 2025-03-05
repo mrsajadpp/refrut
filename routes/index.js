@@ -82,6 +82,14 @@ router.get('/events', async (req, res) => {
         const data = await axios.get('https://api.buildnship.in/makemypass/integration/org/refrut/list-events/');
         const events = data.data.response;
 
+        console.log(events);
+
+        let formattedEvents = events.map(event => {
+            event.description = event.description ? event.description : "No description";
+            event.logo = event.logo ? event.logo : "No Logo";
+            event.banner = event.banner ? event.banner : "No banner";
+        });
+        
         res.render('index/events', {
             title: "Explore Upcoming Events",
             metaDescription: 'Stay updated with the latest events happening near you. Discover event details, dates, locations, and more. Register now to secure your spot and make the most of these opportunities.',
