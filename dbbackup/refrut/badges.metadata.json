@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"58cbc484df844f74a24e8990d5fe5e56","collectionName":"badges","type":"collection"}
